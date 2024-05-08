@@ -9,7 +9,14 @@ import nodehttps from "node:https";
     agent: false,
  });
  */
-export async function getCurrentAndAllVendorSales() {
+export async function getCurrentVendorSales() {
+  const request = await axios.get("https://localhost:8000/api/currentVendorSales", {
+    httpsAgent: new nodehttps.Agent({ rejectUnauthorized: false }),
+  });
+
+  return request.data;
+}
+export async function getAllVendorSales() {
   const request = await axios.get("https://localhost:8000/api/allVendorSales", {
     httpsAgent: new nodehttps.Agent({ rejectUnauthorized: false }),
   });
