@@ -5,7 +5,7 @@ export async function loadCurrentVendorSales() {
     return {data:{vendorData}}
 }
 export async function loadVendorDataWithDiscordId(code:string) {
-    const vendorData = await getCurrentAndAllVendorSales();
+    const vendorData = await getCurrentVendorSales();
     const discordAccountId = await getDiscordAccountId(code);
     return {data:{vendorData,discordAccountId}}
 }
