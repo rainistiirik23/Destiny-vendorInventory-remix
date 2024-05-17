@@ -49,6 +49,7 @@ export default function VendorSaleWishList(vendorData: vendorData) {
                         const wishListedSaleItemObject = {
                           itemName: saleItem.item_name,
                           itemHash: saleItem.item_hash,
+                          itemIcon: saleItem.item_icon,
                           perks: [{ perkColumn1: [] }, { perkColumn2: [] }, { perkColumn3: [] }, { perkColumn4: [] }],
                           masterWorks: [],
                         };
@@ -78,6 +79,7 @@ export default function VendorSaleWishList(vendorData: vendorData) {
                         const wishListedSaleItemObject = {
                           itemName: saleItem.item_name,
                           itemHash: saleItem.item_hash,
+                          itemIcon: saleItem.item_icon,
                           perks: { perkColumn1: [], perkColumn2: [], perkColumn3: [], perkColumn4: [] },
                           masterWorks: [],
                         };
@@ -203,6 +205,7 @@ export default function VendorSaleWishList(vendorData: vendorData) {
                       const wishListedSaleItemObject = {
                         itemName: saleItem.item_name,
                         itemHash: saleItem.item_hash,
+                        itemIcon: saleItem.item_icon,
                         perks: { perkColumn1: [], perkColumn2: [], perkColumn3: [], perkColumn4: [] },
                         masterWorks: [],
                       };
@@ -230,6 +233,7 @@ export default function VendorSaleWishList(vendorData: vendorData) {
                       const wishListedSaleItemObject = {
                         itemName: saleItem.item_name,
                         itemHash: saleItem.item_hash,
+                        itemIcon: saleItem.item_icon,
                         perks: { perkColumn1: [], perkColumn2: [], perkColumn3: [], perkColumn4: [] },
                         masterWorks: [],
                       };
