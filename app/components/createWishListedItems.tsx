@@ -9,6 +9,7 @@ export default function CreateWishListedItems(vendorData: vendorData) {
   const [itemSearchTerm, setitemSearchTerm] = useState<string | null>(null);
   const [selectedSaleItem, setSelectedSaleItem] = useState<allVendorSalesItem | null>(null);
   const [wishListedItemInfoState, setWishListedItemInfoState] = useState<object | null>(null);
+  console.log(selectedSaleItem);
 
   if (selectedSaleItem) {
     return (
@@ -26,21 +27,13 @@ export default function CreateWishListedItems(vendorData: vendorData) {
           ></input>
         </div>
         <div className="sale-selection-items-container">
-          <ul
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              overflow: "scroll",
-              maxWidth: "500px",
-              maxHeight: "300px",
-              justifyContent: "space-evenly",
-            }}
-          >
+          <ul className="sale-selection-items-container-unordered-list">
             {allVendorSales.map((saleItem, saleItemIndex: number) => {
               if (itemSearchTerm != null && saleItem.item_name.toLowerCase().includes(itemSearchTerm!.toLowerCase())) {
                 return (
                   <li key={`saleItem-${saleItemIndex}`}>
                     <button
+                      className="sale-selection-item-button"
                       onClick={() => {
                         if (typeof saleItem.perks == "object") {
                           setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
@@ -71,6 +64,7 @@ export default function CreateWishListedItems(vendorData: vendorData) {
                 return (
                   <li key={`saleItem-${saleItemIndex}`}>
                     <button
+                      className="sale-selection-item-button"
                       onClick={() => {
                         if (typeof saleItem.perks == "object") {
                           setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
@@ -98,53 +92,76 @@ export default function CreateWishListedItems(vendorData: vendorData) {
             })}
           </ul>
         </div>
+        <div className="selected-sale-item-container">
+          <div className="selected-sale-item-image-container">
+            <img src={`http://www.bungie.net${selectedSaleItem.item_icon}`} alt="" />
+          </div>
+          <div className="selected-sale-item-info-container">
+            <h2>{selectedSaleItem.item_name}</h2>
+            <span>{selectedSaleItem.item_flavorText}</span>
+          </div>
+        </div>
         <div className="sale-item-perks-selection-container">
-          {Object.keys(selectedSaleItem.perks).map((perkColumnKey) => {
+          {Object.keys(selectedSaleItem.perks).map((perkColumnKey, columnIndex) => {
             return (
-              <ul
-                className="sale-item-perks-selection-container-unordered-list"
-                key={`${selectedSaleItem.item_name}-${perkColumnKey}`}
-                style={{ display: "flex" }}
-              >
-                {selectedSaleItem.perks[perkColumnKey].map((perk, perkIndex: number) => {
-                  return (
-                    <li
-                      className="sale-item-perk-list-item"
-                      key={`${selectedSaleItem.item_name}-${perkColumnKey}-${perkIndex}`}
-                    >
-                      <button
-                        onClick={() => {
-                          /* console.log(wishListedItemInfoState.perks["perkColumn1"]);
-                          console.log(perkColumnKey); */
-                          wishListedItemInfoState.perks[perkColumnKey].push(perk);
-                          setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
-                        }}
+              <>
+                <h2 className="perk-column-header">{`Column ${columnIndex + 1}`}</h2>
+                <ul
+                  className="sale-item-perks-selection-container-unordered-list"
+                  key={`${selectedSaleItem.item_name}-${perkColumnKey}`}
+                >
+                  {selectedSaleItem.perks[perkColumnKey].map((perk, perkIndex: number) => {
+                    return (
+                      <li
+                        className="sale-item-perk-list-item"
+                        key={`${selectedSaleItem.item_name}-${perkColumnKey}-${perkIndex}`}
                       >
-                        <img style={{ backgroundColor: "blue" }} src={`http://www.bungie.net${perk.perkIcon}`} alt="" />
-                        <span>{perk.perkName}</span>
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
+                        <button
+                          className="sale-item-perk-selection-button"
+                          onClick={() => {
+                            /* console.log(wishListedItemInfoState.perks["perkColumn1"]);
+                          console.log(perkColumnKey); */
+                            wishListedItemInfoState.perks[perkColumnKey].push(perk);
+                            setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
+                          }}
+                        >
+                          <img
+                            style={{ backgroundColor: "blue" }}
+                            src={`http://www.bungie.net${perk.perkIcon}`}
+                            alt=""
+                          />
+                        </button>
+                        <div className="sale-item-perk-info">
+                          <h3>{perk.perkName}</h3>
+                          <span>{perk.perkDescription}</span>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </>
             );
           })}
         </div>
         <div className="sale-item-masterwork-selection-container">
-          <ul style={{ display: "flex" }} className="sale-item-masterwork-selection-unordered-list">
+          <ul className="sale-item-masterwork-selection-unordered-list">
             {selectedSaleItem.masterworks.map((masterWork, masterWorkIndex) => {
               if (masterWork.masterWorkName.includes("Tier 1")) {
                 return (
-                  <li key={`${masterWork.masterWorkName}-${masterWorkIndex}`}>
+                  <li
+                    className="sale-item-masterwork-selection-unordered-list-item"
+                    key={`${masterWork.masterWorkName}-${masterWorkIndex}`}
+                  >
                     <button
+                      className="sale-item-masterwork-selection-button"
                       onClick={() => {
                         wishListedItemInfoState.masterWorks.push(masterWork);
                         setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
                       }}
                     >
-                      <span>{masterWork.masterWorkName}</span>
                       <img src={`http://www.bungie.net${masterWork.masterWorkIcon}`} alt="" />
                     </button>
+                    <span>{masterWork.masterWorkName}</span>
                   </li>
                 );
               }
@@ -181,21 +198,13 @@ export default function CreateWishListedItems(vendorData: vendorData) {
         ></input>
       </div>
       <div className="sale-selection-items-container">
-        <ul
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            overflow: "scroll",
-            maxWidth: "500px",
-            maxHeight: "300px",
-            justifyContent: "space-evenly",
-          }}
-        >
+        <ul className="sale-selection-items-container-unordered-list">
           {allVendorSales.map((saleItem, saleItemIndex: number) => {
             if (itemSearchTerm != null && saleItem.item_name.toLowerCase().includes(itemSearchTerm!.toLowerCase())) {
               return (
                 <li key={`saleItem-${saleItemIndex}`}>
                   <button
+                    className="sale-selection-item-button"
                     onClick={() => {
                       if (typeof saleItem.perks == "object") {
                         setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
@@ -225,6 +234,7 @@ export default function CreateWishListedItems(vendorData: vendorData) {
               return (
                 <li key={`saleItem-${saleItemIndex}`}>
                   <button
+                    className="sale-selection-item-button"
                     onClick={() => {
                       if (typeof saleItem.perks == "object") {
                         return;

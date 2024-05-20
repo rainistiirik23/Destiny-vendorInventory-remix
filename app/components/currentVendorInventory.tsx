@@ -63,16 +63,16 @@ export default function CurrentVendorInventory(vendorData: vendorData) {
       perkTypeAndTierDisplayName: string;
     }>;
   };
-  console.log(vendorData);
+  /*  console.log(vendorData); */
   return (
     <div>
       <div>
-        <img alt=""></img>
-      </div>
-      <div>
-        <ul>
+        <ul className="vendor-sales-unordered-list">
           {currentVendorSales.map((vendorSale, index) => {
             const perkAsJson: perkObject = JSON.parse(vendorSale.perks!);
+            const masterworkObject = JSON.parse(vendorSale.masterWork);
+            console.log(masterworkObject);
+
             /*  console.log(perkAsJson); */
             const perkObjectKeys: Array<string> = Object.keys(perkAsJson);
             return (
@@ -83,30 +83,52 @@ export default function CurrentVendorInventory(vendorData: vendorData) {
                       <img className="sale-item-image" src={`http://www.bungie.net${vendorSale.itemIcon}`} alt="" />
                     </div>
                     <div className="sale-item-info">
-                      <span className="sale-item-name">{vendorSale.itemName}</span>
+                      <h1 className="sale-item-name">{vendorSale.itemName}</h1>
                       <span className="sale-item-flavor-text">{vendorSale.itemFlavorText}</span>
                     </div>
                   </div>
                   <div className="sale-item-perks-container">
-                    {perkObjectKeys.map((perkColumnKey) => {
+                    {perkObjectKeys.map((perkColumnKey, columnIndex) => {
+                      if (perkColumnKey === "perkColumn6") {
+                        return;
+                      }
                       return (
-                        <ul key={`vendorSale-${index}-perkColumn${perkColumnKey}`}>
-                          {perkAsJson[perkColumnKey].map((perk, perkIndex: number) => {
-                            return (
-                              <li key={`vendorSale-${index}-perkColumn${perkColumnKey}-perk${perkIndex}`}>
-                                <img
-                                  style={{ backgroundColor: "blue" }}
-                                  src={`http://www.bungie.net${perk.perkIcon}`}
-                                  alt=""
-                                />
-                                <span>{perk.perkName}</span>
-                                <span>{perk.perkDescription}</span>
-                              </li>
-                            );
-                          })}
-                        </ul>
+                        <>
+                          <h2 className="sale-item-perks-header">{`Column ${columnIndex + 1}`}</h2>
+                          <ul
+                            className="sale-item-perk-column-unordered-list"
+                            key={`vendorSale-${index}-perkColumn${perkColumnKey}`}
+                          >
+                            {perkAsJson[perkColumnKey].map((perk, perkIndex: number) => {
+                              return (
+                                <li
+                                  className="sale-item-perk-column-unordered-list-item"
+                                  key={`vendorSale-${index}-perkColumn${perkColumnKey}-perk${perkIndex}`}
+                                >
+                                  <img
+                                    className="sale-item-perk-image"
+                                    style={{ backgroundColor: "blue" }}
+                                    src={`http://www.bungie.net${perk.perkIcon}`}
+                                    alt=""
+                                  />
+                                  <div className="sale-item-perk-info-container">
+                                    <h3>{perk.perkName}</h3>
+                                    <span>{perk.perkDescription}</span>
+                                  </div>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </>
                       );
                     })}
+                  </div>
+                  <div className="sale-item-masterwork-container">
+                    <h2>Masterwork</h2>
+                    <div className="sale-item-masterwork-info-container">
+                      <img src={`http://www.bungie.net${masterworkObject.masterWorkIcon}`} alt="masterwork icon" />
+                      <span>{masterworkObject.masterWorkName}</span>
+                    </div>
                   </div>
                 </div>
               </li>
