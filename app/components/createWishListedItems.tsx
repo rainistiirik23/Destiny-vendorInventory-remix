@@ -1,7 +1,7 @@
 import { type vendorData, type allVendorSalesItem } from "~/utils/types";
 import { useState } from "react";
 import { saveWishListedItem } from "~/utils/requests";
-export default function VendorSaleWishList(vendorData: vendorData) {
+export default function CreateWishListedItems(vendorData: vendorData) {
   const allVendorSales = vendorData.vendorData.allVendorSales;
 
   /* const [showPerkList, setShowPerkListState] = useState<boolean>(false); */
