@@ -8,6 +8,10 @@ import {
   loadVendorDataWithDiscordId,
 } from "~/loaders/loadVendorData";
 import VendorWishlistPage from "~/pages/vendorSaleWishListPage";
+import styles from "~/styles/entry.css?url";
+export function LinksFunction() {
+  return [{ rel: "stylesheet", href: styles }];
+}
 export async function action({ request }: ActionFunctionArgs) {
   const body = (await request.formData()).get("data");
   console.log(body);
