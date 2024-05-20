@@ -79,8 +79,8 @@ export default function CurrentVendorInventory(vendorData: vendorData) {
               <li key={`vendorSale-${index}`}>
                 <div>
                   <div className="sale-item-container">
-                    <div className="sale-item-image">
-                      <img src={`http://www.bungie.net${vendorSale.itemIcon}`} alt="" />
+                    <div className="sale-item-image-container">
+                      <img className="sale-item-image" src={`http://www.bungie.net${vendorSale.itemIcon}`} alt="" />
                     </div>
                     <div className="sale-item-info">
                       <span className="sale-item-name">{vendorSale.itemName}</span>
