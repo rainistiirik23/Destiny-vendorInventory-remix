@@ -1,6 +1,7 @@
 import { type vendorData, type allVendorSalesItem } from "~/utils/types";
 import { useState } from "react";
 import { saveWishListedItem } from "~/utils/requests";
+import { Form } from "@remix-run/react";
 export default function CreateWishListedItems(vendorData: vendorData) {
   const allVendorSales = vendorData.vendorData.allVendorSales;
 
@@ -111,14 +112,28 @@ export default function CreateWishListedItems(vendorData: vendorData) {
                   key={`${selectedSaleItem.item_name}-${perkColumnKey}`}
                 >
                   {selectedSaleItem.perks[perkColumnKey].map((perk, perkIndex: number) => {
+                    const doesPerkMatch = wishListedItemInfoState.perks[perkColumnKey].find((wishlistedPerk) => {
+                      return wishlistedPerk.perkName === perk.perkName;
+                    });
                     return (
                       <li
-                        className="sale-item-perk-list-item"
+                        /*  className="sale-item-perk-list-item" */
+                        className={doesPerkMatch ? "sale-item-perk-list-item-active" : "sale-item-perk-list-item"}
                         key={`${selectedSaleItem.item_name}-${perkColumnKey}-${perkIndex}`}
                       >
                         <button
                           className="sale-item-perk-selection-button"
                           onClick={() => {
+                            if (doesPerkMatch) {
+                              const findMatchedPerkIndex = wishListedItemInfoState.perks[perkColumnKey].findIndex(
+                                (wishlistedPerk) => {
+                                  return wishlistedPerk.perkName === perk.perkName;
+                                }
+                              );
+                              wishListedItemInfoState.perks[perkColumnKey].splice(findMatchedPerkIndex, 1);
+                              setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
+                              return;
+                            }
                             /* console.log(wishListedItemInfoState.perks["perkColumn1"]);
                           console.log(perkColumnKey); */
                             wishListedItemInfoState.perks[perkColumnKey].push(perk);
@@ -147,21 +162,47 @@ export default function CreateWishListedItems(vendorData: vendorData) {
           <ul className="sale-item-masterwork-selection-unordered-list">
             {selectedSaleItem.masterworks.map((masterWork, masterWorkIndex) => {
               if (masterWork.masterWorkName.includes("Tier 1")) {
+                const doesMasterworkMatch = wishListedItemInfoState.masterWorks.find((wishListedMasterwork) => {
+                  return (
+                    masterWork.masterWorkName.replace("Tier 1:", "").trim() === wishListedMasterwork.masterWorkName
+                  );
+                });
                 return (
                   <li
-                    className="sale-item-masterwork-selection-unordered-list-item"
+                    className={
+                      doesMasterworkMatch
+                        ? "sale-item-masterwork-selection-unordered-list-item-active"
+                        : "sale-item-masterwork-selection-unordered-list-item"
+                    }
                     key={`${masterWork.masterWorkName}-${masterWorkIndex}`}
                   >
                     <button
                       className="sale-item-masterwork-selection-button"
                       onClick={() => {
-                        wishListedItemInfoState.masterWorks.push(masterWork);
+                        if (doesMasterworkMatch) {
+                          const matchedMasterWorkIndex = wishListedItemInfoState.masterWorks.findIndex(
+                            (wishListedMasterwork) => {
+                              return (
+                                masterWork.masterWorkName.replace("Tier 1:", "").trim() ===
+                                wishListedMasterwork.masterWorkName
+                              );
+                            }
+                          );
+                          wishListedItemInfoState.masterWorks.splice(matchedMasterWorkIndex, 1);
+                          setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
+                          return;
+                        }
+                        const masterWorksObjectCopy = Object.assign({}, masterWork);
+                        masterWorksObjectCopy.masterWorkName = masterWorksObjectCopy.masterWorkName
+                          .replace("Tier 1:", "")
+                          .trim();
+                        wishListedItemInfoState.masterWorks.push(masterWorksObjectCopy);
                         setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
                       }}
                     >
                       <img src={`http://www.bungie.net${masterWork.masterWorkIcon}`} alt="" />
                     </button>
-                    <span>{masterWork.masterWorkName}</span>
+                    <span>{masterWork.masterWorkName.replace("Tier 1:", "").trim()}</span>
                   </li>
                 );
               }
@@ -169,15 +210,17 @@ export default function CreateWishListedItems(vendorData: vendorData) {
           </ul>
         </div>
         <div>
-          <form
+          <Form
             onSubmit={(e) => {
-              e.preventDefault();
-              saveWishListedItem(wishListedItemInfoState, vendorData.userData.showData);
+              /*  e.preventDefault();
+              saveWishListedItem(wishListedItemInfoState, vendorData.userData.showData); */
+              console.log(vendorData.userData.showData);
             }}
             method="POST"
           >
-            <button type="submit">Send</button>
-          </form>
+            <input name="data" type="hidden" value={JSON.stringify({ wishListedItemInfoState, userData })} />
+            <input type="submit"></input>
+          </Form>
         </div>
       </div>
     );
