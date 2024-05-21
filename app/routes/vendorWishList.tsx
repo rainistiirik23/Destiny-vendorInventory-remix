@@ -1,7 +1,7 @@
 import { type LoaderFunctionArgs, type ActionFunctionArgs, json, redirect } from "@remix-run/node";
 import { userDataCookie } from "~/utils/cookies";
 import { ShouldRevalidateFunctionArgs, useLoaderData } from "@remix-run/react";
-import { editWishListedItem, deleteWishListedItem } from "~/utils/requests";
+import { editWishListedItem, deleteWishListedItem, saveWishListedItem } from "~/utils/requests";
 import {
   loadAllVendorSales,
   loadAllVendorSalesWithUsersWishListedSales,
@@ -17,6 +17,11 @@ export async function action({ request }: ActionFunctionArgs) {
   console.log(body);
   switch (request.method) {
     case "POST":
+      if (body) {
+        const bodyAsJson = JSON.parse(body as string);
+        saveWishListedItem(bodyAsJson.wishListedItemInfoState, bodyAsJson.userData);
+        return null;
+      }
       return redirect("/vendorWishList", {
         headers: {
           "Set-Cookie": await userDataCookie.serialize("", { maxAge: -1 }),
@@ -35,7 +40,7 @@ export async function action({ request }: ActionFunctionArgs) {
   }
 }
 export function shouldRevalidate({ defaultShouldRevalidate, formMethod }: ShouldRevalidateFunctionArgs) {
-  if (formMethod == "PUT") {
+  if (formMethod == "PUT" || formMethod == "POST") {
     return defaultShouldRevalidate;
   }
 }
