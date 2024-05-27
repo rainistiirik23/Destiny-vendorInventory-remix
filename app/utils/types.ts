@@ -13,6 +13,7 @@ export type currentVendorSalesLoaderData ={
                 itemTypeAndTierDisplayName: string;
                 itemSaleKey: number;
                 perks: string;
+                masterWork:string
             }>;
         };
     };
