@@ -1,4 +1,3 @@
-import { type loaderData } from "~/utils/types";
 import VendorSaleWishList from "~/components/vendorSaleWishlist";
 import Navbar from "~/components/navbar";
 import { useState } from "react";
@@ -7,7 +6,7 @@ import DeleteWishListedItems from "~/components/deleteWishListedItems";
 import CreateWishListedItems from "~/components/createWishListedItems";
 import WishListedItems from "~/components/wishListedItems";
 import EditWishListedItem from "~/components/editWishListedItem";
-export default function VendorWishlistPage(data: loaderData) {
+export default function VendorWishlistPage(data) {
   const vendorSales = data.vendorData.data;
   const usersWishListedSales = data.vendorData.data;
   const userData = data.value;
