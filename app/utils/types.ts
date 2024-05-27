@@ -1,4 +1,40 @@
-export type currentVendorSalesLoaderData ={
+export type wishlistData = {
+    value: null | { showData: { global_name: string, id: string } };
+    vendorData: {
+        data: {
+            vendorData: {
+                allVendorSales: Array<{
+                    id: number;
+                    vendorId: number;
+                    itemManifestID: number;
+                    itemName: string;
+                    itemIcon: string;
+                    itemHash: number;
+                    itemTypeDisplayName: string;
+                    itemFlavorText: string;
+                    itemTypeAndTierDisplayName: string;
+                    itemSaleKey: number;
+                    perks: string;
+                }>
+            },
+            usersWishListedSales?: Array<{
+                id: number;
+                item_name: string;
+                item_icon: string;
+                item_hash: number;
+                itemTypeDisplayName: string;
+                itemFlavorText: string;
+                itemTypeAndTierDisplayName: string;
+                itemSaleKey: number;
+                perks: string;
+                masterworks: string
+                user_id: string
+            }>
+        }
+    }
+}
+
+export type currentVendorSalesLoaderData = {
     data: {
         vendorData: {
             currentVendorSales: Array<{
@@ -13,13 +49,13 @@ export type currentVendorSalesLoaderData ={
                 itemTypeAndTierDisplayName: string;
                 itemSaleKey: number;
                 perks: string;
-                masterWork:string
+                masterWork: string
             }>;
         };
     };
 };
 export type perkObject = {
-    [perkColumn1:string]: Array<{
+    [perkColumn1: string]: Array<{
         perkDescription: string;
         perkHash: number;
         perkIcon: string;
