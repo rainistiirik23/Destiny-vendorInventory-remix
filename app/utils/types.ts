@@ -2,17 +2,17 @@ export type currentVendorSalesLoaderData ={
     data: {
         vendorData: {
             currentVendorSales: Array<{
-                id?: number;
-                vendorId?: number;
-                itemManifestID?: number;
-                itemName?: string;
-                itemIcon?: string;
-                itemHash?: number;
-                itemTypeDisplayName?: string;
-                itemFlavorText?: string;
-                itemTypeAndTierDisplayName?: string;
-                itemSaleKey?: number;
-                perks?: string;
+                id: number;
+                vendorId: number;
+                itemManifestID: number;
+                itemName: string;
+                itemIcon: string;
+                itemHash: number;
+                itemTypeDisplayName: string;
+                itemFlavorText: string;
+                itemTypeAndTierDisplayName: string;
+                itemSaleKey: number;
+                perks: string;
             }>;
         };
     };
