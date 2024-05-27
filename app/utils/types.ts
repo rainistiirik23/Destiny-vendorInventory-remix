@@ -17,6 +17,32 @@ export type currentVendorSalesLoaderData ={
         };
     };
 };
+export type perkObject = {
+    [perkColumn1:string]: Array<{
+        perkDescription: string;
+        perkHash: number;
+        perkIcon: string;
+        perkName: string;
+    }>;
+    perkColumn2: Array<{
+        perkDescription: string;
+        perkHash: number;
+        perkIcon: string;
+        perkName: string;
+    }>;
+    perkColumn3: Array<{
+        perkDescription: string;
+        perkHash: number;
+        perkIcon: string;
+        perkName: string;
+    }>;
+    perkColumn4: Array<{
+        perkDescription: string;
+        perkHash: number;
+        perkIcon: string;
+        perkName: string;
+    }>;
+};
 export type vendorData = {
     currentVendorSales: Array<{
         id?: number;
