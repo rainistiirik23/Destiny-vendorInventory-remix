@@ -20,24 +20,27 @@ export default function WishListedItems(data: unknown) {
             <div key={`item${itemIndex}`}>
               <li className="user-item-info-container">
                 <img src={`http://www.bungie.net${userWishListItem.item_icon}`} alt="" />
-                <span>{userWishListItem.item_name}</span>
+                <h1>{userWishListItem.item_name}</h1>
                 <ul className="user-item-perks-masterworks-info-container">
-                  {Object.keys(itemPerks).map((perkColumnKey: unknown) => {
+                  {Object.keys(itemPerks).map((perkColumnKey: unknown, perkColumnIndex) => {
                     return (
-                      <ul key={`item${itemIndex}-perkColumn${perkColumnKey}`} className="perks-unordered-list">
-                        {itemPerks[perkColumnKey].map((perk: unknown, perkIndex: number) => {
-                          return (
-                            <li key={`item${itemIndex}-perkColumn${perkColumnKey}-perk-${perkIndex}`}>
-                              <img
-                                style={{ backgroundColor: "blue" }}
-                                src={`http://www.bungie.net${perk.perkIcon}`}
-                                alt=""
-                              />
-                              <span>{perk.perkName}</span>
-                            </li>
-                          );
-                        })}
-                      </ul>
+                      <li key={`item${itemIndex}-perkColumn${perkColumnKey}`}>
+                        <h2>{`Perk column ${perkColumnIndex + 1}`}</h2>
+                        <ul className="perks-unordered-list">
+                          {itemPerks[perkColumnKey].map((perk: unknown, perkIndex: number) => {
+                            return (
+                              <li key={`item${itemIndex}-perkColumn${perkColumnKey}-perk-${perkIndex}`}>
+                                <img
+                                  style={{ backgroundColor: "blue" }}
+                                  src={`http://www.bungie.net${perk.perkIcon}`}
+                                  alt=""
+                                />
+                                <span>{perk.perkName}</span>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </li>
                     );
                   })}
                 </ul>

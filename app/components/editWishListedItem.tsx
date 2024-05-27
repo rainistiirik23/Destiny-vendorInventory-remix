@@ -14,56 +14,59 @@ export default function EditWishListedItem(props: any) {
   console.log(wishListedItemMasterworks);
   return (
     <div>
-      <img src={`http://www.bungie.net${wishListedItemEditInfo.item_icon}`} alt="" />
-      <span>{wishListedItemEditInfo.item_name}</span>
+      <div>
+        <img src={`http://www.bungie.net${wishListedItemEditInfo.item_icon}`} alt="" />
+        <h1>{wishListedItemEditInfo.item_name}</h1>
+      </div>
       <ul className="user-item-perks-masterworks-info-container">
-        {Object.keys(matchingItemPerks).map((perkColumnKey: unknown) => {
+        {Object.keys(matchingItemPerks).map((perkColumnKey: unknown, columnKeyIndex) => {
           return (
-            <ul key={`perkColumn${perkColumnKey}`} className="perks-unordered-list">
-              {matchingItemPerks[perkColumnKey].map((perk: unknown, perkIndex: number) => {
-                const doesPerkMatchWithIndex = wishListedItemPerks[perkColumnKey].findIndex(
-                  (wishlistedItemPerk: any) => {
-                    return wishlistedItemPerk.perkName === perk.perkName;
-                  }
-                );
-                if (doesPerkMatchWithIndex !== -1) {
-                  return (
-                    <button
-                      key={`perkColumn${perkColumnKey}-perk-${perkIndex}`}
-                      onClick={() => {
-                        wishListedItemPerks[perkColumnKey].splice(doesPerkMatchWithIndex, 1);
-                        wishListedItemEditInfo.perks = JSON.stringify(wishListedItemPerks);
-                        setWishlistedItemEditStateFunction(Object.assign({}, wishListedItemEditInfo));
-                      }}
-                    >
-                      <li>
-                        <img
-                          style={{ backgroundColor: "black" }}
-                          src={`http://www.bungie.net${perk.perkIcon}`}
-                          alt=""
-                        />
+            <li key={`perkColumn${perkColumnKey}`}>
+              <h2>{`Column ${columnKeyIndex + 1}`}</h2>
+              <ul className="perks-unordered-list">
+                {matchingItemPerks[perkColumnKey].map((perk: unknown, perkIndex: number) => {
+                  const doesPerkMatchWithIndex = wishListedItemPerks[perkColumnKey].findIndex(
+                    (wishlistedItemPerk: any) => {
+                      return wishlistedItemPerk.perkName === perk.perkName;
+                    }
+                  );
+                  if (doesPerkMatchWithIndex !== -1) {
+                    return (
+                      <li key={`perkColumn${perkColumnKey}-perk-${perkIndex}`}>
+                        <button
+                          onClick={() => {
+                            wishListedItemPerks[perkColumnKey].splice(doesPerkMatchWithIndex, 1);
+                            wishListedItemEditInfo.perks = JSON.stringify(wishListedItemPerks);
+                            setWishlistedItemEditStateFunction(Object.assign({}, wishListedItemEditInfo));
+                          }}
+                        >
+                          <img
+                            style={{ backgroundColor: "black" }}
+                            src={`http://www.bungie.net${perk.perkIcon}`}
+                            alt=""
+                          />
+                        </button>
                         <span>{perk.perkName}</span>
                       </li>
-                    </button>
-                  );
-                }
-                return (
-                  <button
-                    key={`perkColumn${perkColumnKey}-perk-${perkIndex}`}
-                    onClick={() => {
-                      wishListedItemPerks[perkColumnKey].push(perk);
-                      wishListedItemEditInfo.perks = JSON.stringify(wishListedItemPerks);
-                      setWishlistedItemEditStateFunction(Object.assign({}, wishListedItemEditInfo));
-                    }}
-                  >
+                    );
+                  }
+                  return (
                     <li key={`perkColumn${perkColumnKey}-perk-${perkIndex}`}>
-                      <img style={{ backgroundColor: "blue" }} src={`http://www.bungie.net${perk.perkIcon}`} alt="" />
+                      <button
+                        onClick={() => {
+                          wishListedItemPerks[perkColumnKey].push(perk);
+                          wishListedItemEditInfo.perks = JSON.stringify(wishListedItemPerks);
+                          setWishlistedItemEditStateFunction(Object.assign({}, wishListedItemEditInfo));
+                        }}
+                      >
+                        <img style={{ backgroundColor: "blue" }} src={`http://www.bungie.net${perk.perkIcon}`} alt="" />
+                      </button>
                       <span>{perk.perkName}</span>
                     </li>
-                  </button>
-                );
-              })}
-            </ul>
+                  );
+                })}
+              </ul>
+            </li>
           );
         })}
       </ul>
@@ -77,39 +80,39 @@ export default function EditWishListedItem(props: any) {
           });
           if (masterwork.masterWorkName.includes("Tier 1") && doesMasterworkMatchWithIndex !== -1) {
             return (
-              <button
-                key={`masterwork-${masterworkIndex}`}
-                onClick={() => {
-                  wishListedItemMasterworks.splice(doesMasterworkMatchWithIndex, 1);
-                  wishListedItemEditInfo.masterworks = JSON.stringify(wishListedItemMasterworks);
-                  setWishlistedItemEditStateFunction(Object.assign({}, wishListedItemEditInfo));
-                }}
-              >
-                <li style={{ backgroundColor: "black" }}>
+              <li key={`masterwork-${masterworkIndex}`}>
+                <button
+                  style={{ backgroundColor: "black" }}
+                  onClick={() => {
+                    wishListedItemMasterworks.splice(doesMasterworkMatchWithIndex, 1);
+                    wishListedItemEditInfo.masterworks = JSON.stringify(wishListedItemMasterworks);
+                    setWishlistedItemEditStateFunction(Object.assign({}, wishListedItemEditInfo));
+                  }}
+                >
                   <img src={`http://www.bungie.net${masterwork.masterWorkIcon}`} alt="" />
-                  <span>{masterwork.masterWorkName.replace("Tier 1:", "").trim()}</span>
-                </li>
-              </button>
+                </button>
+                <span>{masterwork.masterWorkName.replace("Tier 1:", "").trim()}</span>
+              </li>
             );
           } else if (masterwork.masterWorkName.includes("Tier 1")) {
             return (
-              <button
-                key={`masterwork-${masterworkIndex}`}
-                onClick={() => {
-                  const masterWorksObjectCopy = Object.assign({}, masterwork);
-                  masterWorksObjectCopy.masterWorkName = masterWorksObjectCopy.masterWorkName
-                    .replace("Tier 1:", "")
-                    .trim();
-                  wishListedItemMasterworks.push(masterWorksObjectCopy);
-                  wishListedItemEditInfo.masterworks = JSON.stringify(wishListedItemMasterworks);
-                  setWishlistedItemEditStateFunction(Object.assign({}, wishListedItemEditInfo));
-                }}
-              >
-                <li>
+              <li key={`masterwork-${masterworkIndex}`}>
+                <button
+                  key={`masterwork-${masterworkIndex}`}
+                  onClick={() => {
+                    const masterWorksObjectCopy = Object.assign({}, masterwork);
+                    masterWorksObjectCopy.masterWorkName = masterWorksObjectCopy.masterWorkName
+                      .replace("Tier 1:", "")
+                      .trim();
+                    wishListedItemMasterworks.push(masterWorksObjectCopy);
+                    wishListedItemEditInfo.masterworks = JSON.stringify(wishListedItemMasterworks);
+                    setWishlistedItemEditStateFunction(Object.assign({}, wishListedItemEditInfo));
+                  }}
+                >
                   <img src={`http://www.bungie.net${masterwork.masterWorkIcon}`} alt="" />
-                  <span>{masterwork.masterWorkName.replace("Tier 1:", "").trim()}</span>
-                </li>
-              </button>
+                </button>
+                <span>{masterwork.masterWorkName.replace("Tier 1:", "").trim()}</span>
+              </li>
             );
           }
         })}
