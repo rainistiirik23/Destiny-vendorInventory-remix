@@ -1,4 +1,5 @@
 import CurrentVendorInventory from "~/components/currentVendorInventory";
+import Navbar from "~/components/navbar";
 import { type loaderData } from "~/utils/types";
 
 /* type vendorData = {
@@ -7,9 +8,16 @@ import { type loaderData } from "~/utils/types";
 }; */
 
 export default function CurrentVendorInventoryPage(data: loaderData) {
+  console.log(data);
+
   return (
-    <main>
-      <CurrentVendorInventory {...data}></CurrentVendorInventory>
-    </main>
+    <>
+      <header>
+        <Navbar userData={data.value}></Navbar>
+      </header>
+      <main>
+        <CurrentVendorInventory {...data}></CurrentVendorInventory>
+      </main>
+    </>
   );
 }
