@@ -1,0 +1,19 @@
+.navigation-links-container {
+  display: flex;
+  justify-content: space-between;
+  width: 1200px;
+  margin: 0 auto;
+}
+.navigation-links-unordered-list {
+  display: flex;
+  gap: 12px;
+}
+.navigation-link {
+  text-decoration: none;
+  text-decoration-color: none;
+  background-color: gray;
+}
+.log-out-form-container {
+  display: flex;
+  gap: 12px;
+}
