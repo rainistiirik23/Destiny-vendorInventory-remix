@@ -14,7 +14,7 @@ export default function CurrentVendorInventory(vendorData: vendorData) {
     itemTypeAndTierDisplayName?: string;
     itemSaleKey?: number;
     perks?: string;
-  }> = vendorData.data.vendorData.currentVendorSales;
+  }> = vendorData.vendorData.vendorData.currentVendorSales;
   /* type sale = */
   type perkObject = {
     [perkColumn1: string]: Array<{
