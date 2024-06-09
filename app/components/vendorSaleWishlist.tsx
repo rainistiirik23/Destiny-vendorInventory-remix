@@ -1,4 +1,4 @@
-import { type vendorData, type allVendorSalesItem } from "~/utils/types";
+import { type vendorData, type allVendorSalesItem, wishListedItemInfoStateType } from "~/utils/types";
 import { useState } from "react";
 import { saveWishListedItem } from "~/utils/requests";
 export default function VendorSaleWishList(vendorData: vendorData) {
@@ -8,7 +8,7 @@ export default function VendorSaleWishList(vendorData: vendorData) {
   /* const [showMasterworkList, setShowMasterworkListState] = useState<boolean>(false); */
   const [itemSearchTerm, setitemSearchTerm] = useState<string | null>(null);
   const [selectedSaleItem, setSelectedSaleItem] = useState<allVendorSalesItem | null>(null);
-  const [wishListedItemInfoState, setWishListedItemInfoState] = useState<object | null>(null);
+  const [wishListedItemInfoState, setWishListedItemInfoState] = useState<wishListedItemInfoStateType | null>(null);
 
   if (selectedSaleItem) {
     return (
@@ -46,11 +46,11 @@ export default function VendorSaleWishList(vendorData: vendorData) {
                           setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
                           return;
                         }
-                        const wishListedSaleItemObject = {
+                        const wishListedSaleItemObject: wishListedItemInfoStateType = {
                           itemName: saleItem.item_name,
                           itemHash: saleItem.item_hash,
                           itemIcon: saleItem.item_icon,
-                          perks: [{ perkColumn1: [] }, { perkColumn2: [] }, { perkColumn3: [] }, { perkColumn4: [] }],
+                          perks: { perkColumn1: [], perkColumn2: [], perkColumn3: [], perkColumn4: [] },
                           masterWorks: [],
                         };
                         setWishListedItemInfoState(Object.assign({}, wishListedSaleItemObject));
@@ -116,7 +116,7 @@ export default function VendorSaleWishList(vendorData: vendorData) {
                         onClick={() => {
                           /* console.log(wishListedItemInfoState.perks["perkColumn1"]);
                           console.log(perkColumnKey); */
-                          wishListedItemInfoState.perks[perkColumnKey].push(perk);
+                          wishListedItemInfoState!.perks[perkColumnKey].push(perk);
                           setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
                         }}
                       >
@@ -138,7 +138,7 @@ export default function VendorSaleWishList(vendorData: vendorData) {
                   <li key={`${masterWork.masterWorkName}-${masterWorkIndex}`}>
                     <button
                       onClick={() => {
-                        wishListedItemInfoState.masterWorks.push(masterWork);
+                        wishListedItemInfoState!.masterWorks.push(masterWork);
                         setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
                       }}
                     >
@@ -155,7 +155,7 @@ export default function VendorSaleWishList(vendorData: vendorData) {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              saveWishListedItem(wishListedItemInfoState, vendorData.userData.showData);
+              saveWishListedItem(wishListedItemInfoState, vendorData.showData);
             }}
             method="POST"
           >

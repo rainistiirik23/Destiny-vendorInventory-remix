@@ -1,4 +1,3 @@
-import { type loaderData } from "~/utils/types";
 import VendorSaleWishList from "~/components/vendorSaleWishlist";
 import Navbar from "~/components/navbar";
 import { useState } from "react";
@@ -7,27 +6,28 @@ import DeleteWishListedItems from "~/components/deleteWishListedItems";
 import CreateWishListedItems from "~/components/createWishListedItems";
 import WishListedItems from "~/components/wishListedItems";
 import EditWishListedItem from "~/components/editWishListedItem";
-export default function VendorWishlistPage(data: loaderData) {
+import { type wishlistData } from "~/utils/types";
+export default function VendorWishlistPage(data: wishlistData) {
   const vendorSales = data.vendorData.data;
   const usersWishListedSales = data.vendorData.data;
   const userData = data.value;
   const [showComponentState, setComponentState] = useState<string | null>(null);
   const [wishlistedItemEditState, setWishlistedEditItemState] = useState<object | null>(null);
   const [selectedItemForDeletionState, setSelectedItemForDeletion] = useState<object | null>(null);
-  console.log(selectedItemForDeletionState);
+  /*  console.log(data); */
 
   switch (showComponentState) {
     case "create-wishlisted-items":
       return (
         <main>
-          <Navbar userData={userData}></Navbar>
-          <CreateWishListedItems userData={userData} {...vendorSales}></CreateWishListedItems>
+          <Navbar {...userData!}></Navbar>
+          <CreateWishListedItems {...userData!} {...vendorSales}></CreateWishListedItems>
         </main>
       );
     case "edit-wishlisted-item":
       return (
         <main>
-          <Navbar userData={userData}></Navbar>
+          <Navbar {...userData!}></Navbar>
           <EditWishListedItem
             wishListedItemEditInfo={wishlistedItemEditState}
             allVendorSales={data.vendorData.data.vendorData.allVendorSales}
@@ -39,7 +39,7 @@ export default function VendorWishlistPage(data: loaderData) {
     case "delete-wishlisted-item":
       return (
         <main>
-          <Navbar userData={userData}></Navbar>
+          <Navbar {...userData!}></Navbar>
           <div>
             <button
               onClick={() => {
@@ -71,7 +71,7 @@ export default function VendorWishlistPage(data: loaderData) {
     default:
       return (
         <main>
-          <Navbar userData={userData}></Navbar>
+          <Navbar {...userData!}></Navbar>
           <WishListedItems
             setWishListedItemsComponentState={setComponentState}
             {...usersWishListedSales}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 interface vendorData {
   currentVendorSales: Array<object>;
 }
@@ -63,15 +64,20 @@ export default function CurrentVendorInventory(vendorData: vendorData) {
       perkTypeAndTierDisplayName: string;
     }>;
   };
+=======
+import { perkObject, type currentVendorSalesLoaderData } from "~/utils/types";
+export default function CurrentVendorInventory(vendorData: currentVendorSalesLoaderData) {
+  const currentVendorSales = vendorData.data.vendorData.currentVendorSales;
+>>>>>>> master
   /*  console.log(vendorData); */
   return (
     <div>
       <div>
         <ul className="vendor-sales-unordered-list">
           {currentVendorSales.map((vendorSale, index) => {
-            const perkAsJson: perkObject = JSON.parse(vendorSale.perks!);
+            const perkAsJson: perkObject = JSON.parse(vendorSale.perks as string);
             const masterworkObject = JSON.parse(vendorSale.masterWork);
-            console.log(masterworkObject);
+            /*      console.log(masterworkObject); */
 
             /*  console.log(perkAsJson); */
             const perkObjectKeys: Array<string> = Object.keys(perkAsJson);

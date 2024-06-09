@@ -1,8 +1,10 @@
-export default function Navbar(data: unknown) {
-  /*   console.log(data.userData); */
+import { userData } from "~/utils/types";
 
-  if (data.userData) {
-    const userData = data.userData.showData;
+export default function Navbar(data: userData) {
+  /*   console.log(data); */
+
+  const userData = data.showData;
+  if (userData) {
     return (
       <div className="navigation-links-container">
         <nav>

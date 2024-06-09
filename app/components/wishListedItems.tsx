@@ -1,4 +1,10 @@
-export default function WishListedItems(data: unknown) {
+import {
+  masterworkObjectArray,
+  perkObject,
+  type userWishListItem,
+  type usersWishlistedItemsFunctions,
+} from "~/utils/types";
+export default function WishListedItems(data: usersWishlistedItemsFunctions) {
   const {
     usersWishListedSales,
     setWishListedItemsComponentState,
@@ -6,28 +12,28 @@ export default function WishListedItems(data: unknown) {
     setSelectedItemForDeletionFunction,
   } = data;
 
-  /* console.log(usersWishListedSales); */
+  /* console.log(data); */
   if (!usersWishListedSales) {
     return <div>Log in to create your wishlist</div>;
   }
   return (
     <div>
       <ul>
-        {usersWishListedSales.map((userWishListItem: unknown, itemIndex: number) => {
-          const itemPerks = JSON.parse(userWishListItem.perks);
-          const itemMasterworks = JSON.parse(userWishListItem.masterworks);
+        {usersWishListedSales.map((userWishListItem: userWishListItem, itemIndex: number) => {
+          const itemPerks: perkObject = JSON.parse(userWishListItem.perks as string);
+          const itemMasterworks: masterworkObjectArray = JSON.parse(userWishListItem.masterworks as string);
           return (
             <div key={`item${itemIndex}`}>
               <li className="user-item-info-container">
                 <img src={`http://www.bungie.net${userWishListItem.item_icon}`} alt="" />
                 <h1>{userWishListItem.item_name}</h1>
                 <ul className="user-item-perks-masterworks-info-container">
-                  {Object.keys(itemPerks).map((perkColumnKey: unknown, perkColumnIndex) => {
+                  {Object.keys(itemPerks).map((perkColumnKey, perkColumnIndex) => {
                     return (
                       <li key={`item${itemIndex}-perkColumn${perkColumnKey}`}>
                         <h2>{`Perk column ${perkColumnIndex + 1}`}</h2>
                         <ul className="perks-unordered-list">
-                          {itemPerks[perkColumnKey].map((perk: unknown, perkIndex: number) => {
+                          {itemPerks[perkColumnKey].map((perk, perkIndex: number) => {
                             return (
                               <li key={`item${itemIndex}-perkColumn${perkColumnKey}-perk-${perkIndex}`}>
                                 <img
@@ -45,7 +51,7 @@ export default function WishListedItems(data: unknown) {
                   })}
                 </ul>
                 <ul className="user-item-masterworks-info-container">
-                  {itemMasterworks.map((masterwork: unknown, masterworkIndex: number) => {
+                  {itemMasterworks.map((masterwork, masterworkIndex: number) => {
                     return (
                       <li key={`item${itemIndex}-masterwork-${masterworkIndex}`}>
                         <img src={`http://www.bungie.net${masterwork.masterWorkIcon}`} alt="" />
@@ -57,6 +63,7 @@ export default function WishListedItems(data: unknown) {
               </li>
               <button
                 onClick={() => {
+                  console.log(userWishListItem);
                   setWishlistedItemEditStateFunction(userWishListItem);
                   setWishListedItemsComponentState("edit-wishlisted-item");
                 }}

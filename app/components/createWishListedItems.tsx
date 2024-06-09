@@ -1,4 +1,4 @@
-import { type vendorData, type allVendorSalesItem } from "~/utils/types";
+import { type vendorData, type allVendorSalesItem, wishListedItemInfoStateType } from "~/utils/types";
 import { useState } from "react";
 import { saveWishListedItem } from "~/utils/requests";
 import { Form } from "@remix-run/react";
@@ -9,8 +9,10 @@ export default function CreateWishListedItems(vendorData: vendorData) {
   /* const [showMasterworkList, setShowMasterworkListState] = useState<boolean>(false); */
   const [itemSearchTerm, setitemSearchTerm] = useState<string | null>(null);
   const [selectedSaleItem, setSelectedSaleItem] = useState<allVendorSalesItem | null>(null);
-  const [wishListedItemInfoState, setWishListedItemInfoState] = useState<object | null>(null);
-  const userData = vendorData.userData.showData;
+  const [wishListedItemInfoState, setWishListedItemInfoState] = useState<wishListedItemInfoStateType | null>(null);
+  const userData = vendorData.showData;
+  console.log(selectedSaleItem);
+
   if (selectedSaleItem) {
     return (
       <div className="sale-selection-container">
@@ -39,11 +41,17 @@ export default function CreateWishListedItems(vendorData: vendorData) {
                           setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
                           return;
                         }
-                        const wishListedSaleItemObject = {
+                        const wishListedSaleItemObject: wishListedItemInfoStateType = {
                           itemName: saleItem.item_name,
                           itemHash: saleItem.item_hash,
                           itemIcon: saleItem.item_icon,
-                          perks: [{ perkColumn1: [] }, { perkColumn2: [] }, { perkColumn3: [] }, { perkColumn4: [] }],
+                          perks: {
+                            perkColumn1: [],
+                            perkColumn2: [],
+                            perkColumn3: [],
+                            perkColumn4: [],
+                          },
+
                           masterWorks: [],
                         };
                         setWishListedItemInfoState(Object.assign({}, wishListedSaleItemObject));
@@ -111,8 +119,8 @@ export default function CreateWishListedItems(vendorData: vendorData) {
                   key={`${selectedSaleItem.item_name}-${perkColumnKey}`}
                 >
                   {selectedSaleItem.perks[perkColumnKey].map((perk, perkIndex: number) => {
-                    const doesPerkMatch = wishListedItemInfoState.perks[perkColumnKey].find((wishlistedPerk) => {
-                      return wishlistedPerk.perkName === perk.perkName;
+                    const doesPerkMatch = wishListedItemInfoState!.perks[perkColumnKey].find((wishlistedPerk) => {
+                      return wishlistedPerk!.perkName === perk.perkName;
                     });
                     return (
                       <li
@@ -124,18 +132,18 @@ export default function CreateWishListedItems(vendorData: vendorData) {
                           className="sale-item-perk-selection-button"
                           onClick={() => {
                             if (doesPerkMatch) {
-                              const findMatchedPerkIndex = wishListedItemInfoState.perks[perkColumnKey].findIndex(
+                              const findMatchedPerkIndex = wishListedItemInfoState!.perks[perkColumnKey].findIndex(
                                 (wishlistedPerk) => {
-                                  return wishlistedPerk.perkName === perk.perkName;
+                                  return wishlistedPerk!.perkName === perk.perkName;
                                 }
                               );
-                              wishListedItemInfoState.perks[perkColumnKey].splice(findMatchedPerkIndex, 1);
+                              wishListedItemInfoState!.perks[perkColumnKey].splice(findMatchedPerkIndex, 1);
                               setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
                               return;
                             }
                             /* console.log(wishListedItemInfoState.perks["perkColumn1"]);
                           console.log(perkColumnKey); */
-                            wishListedItemInfoState.perks[perkColumnKey].push(perk);
+                            wishListedItemInfoState!.perks[perkColumnKey].push(perk);
                             setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
                           }}
                         >
@@ -161,7 +169,7 @@ export default function CreateWishListedItems(vendorData: vendorData) {
           <ul className="sale-item-masterwork-selection-unordered-list">
             {selectedSaleItem.masterworks.map((masterWork, masterWorkIndex) => {
               if (masterWork.masterWorkName.includes("Tier 1")) {
-                const doesMasterworkMatch = wishListedItemInfoState.masterWorks.find((wishListedMasterwork) => {
+                const doesMasterworkMatch = wishListedItemInfoState!.masterWorks.find((wishListedMasterwork) => {
                   return (
                     masterWork.masterWorkName.replace("Tier 1:", "").trim() === wishListedMasterwork.masterWorkName
                   );
@@ -179,7 +187,7 @@ export default function CreateWishListedItems(vendorData: vendorData) {
                       className="sale-item-masterwork-selection-button"
                       onClick={() => {
                         if (doesMasterworkMatch) {
-                          const matchedMasterWorkIndex = wishListedItemInfoState.masterWorks.findIndex(
+                          const matchedMasterWorkIndex = wishListedItemInfoState!.masterWorks.findIndex(
                             (wishListedMasterwork) => {
                               return (
                                 masterWork.masterWorkName.replace("Tier 1:", "").trim() ===
@@ -187,7 +195,7 @@ export default function CreateWishListedItems(vendorData: vendorData) {
                               );
                             }
                           );
-                          wishListedItemInfoState.masterWorks.splice(matchedMasterWorkIndex, 1);
+                          wishListedItemInfoState!.masterWorks.splice(matchedMasterWorkIndex, 1);
                           setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
                           return;
                         }
@@ -195,7 +203,7 @@ export default function CreateWishListedItems(vendorData: vendorData) {
                         masterWorksObjectCopy.masterWorkName = masterWorksObjectCopy.masterWorkName
                           .replace("Tier 1:", "")
                           .trim();
-                        wishListedItemInfoState.masterWorks.push(masterWorksObjectCopy);
+                        wishListedItemInfoState!.masterWorks.push(masterWorksObjectCopy);
                         setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
                       }}
                     >
