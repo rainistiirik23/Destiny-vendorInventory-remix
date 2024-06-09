@@ -1,77 +1,15 @@
-interface vendorData {
-  currentVendorSales: Array<object>;
-}
-export default function CurrentVendorInventory(vendorData: vendorData) {
-  const currentVendorSales: Array<{
-    id?: number;
-    vendorId?: number;
-    itemManifestID?: number;
-    itemName?: string;
-    itemIcon?: string;
-    itemHash?: number;
-    itemTypeDisplayName?: string;
-    itemFlavorText?: string;
-    itemTypeAndTierDisplayName?: string;
-    itemSaleKey?: number;
-    perks?: string;
-  }> = vendorData.data.vendorData.currentVendorSales;
-  /* type sale = */
-  type perkObject = {
-    [perkColumn1: string]: Array<{
-      id: string;
-      perkName: string;
-      perkDescription: string;
-      perkIcon: string;
-      perkHash: number;
-      perkTypeDisplayName: string;
-      perkTypeAndTierDisplayName: string;
-    }>;
-    perkColumn2: Array<{
-      id: string;
-      perkName: string;
-      perkDescription: string;
-      perkIcon: string;
-      perkHash: number;
-      perkTypeDisplayName: string;
-      perkTypeAndTierDisplayName: string;
-    }>;
-    perkColumn3: Array<{
-      id: string;
-      perkName: string;
-      perkDescription: string;
-      perkIcon: string;
-      perkHash: number;
-      perkTypeDisplayName: string;
-      perkTypeAndTierDisplayName: string;
-    }>;
-    perkColumn4: Array<{
-      id: string;
-      perkName: string;
-      perkDescription: string;
-      perkIcon: string;
-      perkHash: number;
-      perkTypeDisplayName: string;
-      perkTypeAndTierDisplayName: string;
-    }>;
-    perkColumn6: Array<{
-      id: string;
-      perkName: string;
-      perkDescription: string;
-      perkIcon: string;
-      perkHash: number;
-      perkTypeDisplayName: string;
-      perkTypeAndTierDisplayName: string;
-    }>;
-  };
+import { perkObject, type currentVendorSalesLoaderData } from "~/utils/types";
+export default function CurrentVendorInventory(vendorData: currentVendorSalesLoaderData) {
+  const currentVendorSales = vendorData.data.vendorData.currentVendorSales;
   /*  console.log(vendorData); */
   return (
     <div>
       <div>
         <ul className="vendor-sales-unordered-list">
           {currentVendorSales.map((vendorSale, index) => {
-            const perkAsJson: perkObject = JSON.parse(vendorSale.perks!);
+            const perkAsJson: perkObject = JSON.parse(vendorSale.perks as string);
             const masterworkObject = JSON.parse(vendorSale.masterWork);
-            console.log(masterworkObject);
+            /*      console.log(masterworkObject); */
 
             /*  console.log(perkAsJson); */
             const perkObjectKeys: Array<string> = Object.keys(perkAsJson);
