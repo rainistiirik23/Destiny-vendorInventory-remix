@@ -39,27 +39,32 @@ export default function VendorWishlistPage(data: wishlistData) {
     case "delete-wishlisted-item":
       return (
         <main>
-          <Navbar {...userData!}></Navbar>
-          <div>
-            <button
-              onClick={() => {
-                setComponentState(null);
-                setSelectedItemForDeletion(null);
-              }}
-            >
-              Cancel
-            </button>
-            <Form
-              method="DELETE"
-              onSubmit={() => {
-                setComponentState(null);
-                setSelectedItemForDeletion(null);
-              }}
-            >
-              <input name="data" value={JSON.stringify(selectedItemForDeletionState)} type="hidden" />
-              <input type="submit"></input>
-            </Form>
+          <div className="delete-container ">
+            <div className="delete-form-button-message-container">
+              <div>Are you sure you want to delete this item?</div>
+              <div className="delete-form-button-container">
+                <button
+                  onClick={() => {
+                    setComponentState(null);
+                    setSelectedItemForDeletion(null);
+                  }}
+                >
+                  Cancel
+                </button>
+                <Form
+                  method="DELETE"
+                  onSubmit={() => {
+                    setComponentState(null);
+                    setSelectedItemForDeletion(null);
+                  }}
+                >
+                  <input name="data" value={JSON.stringify(selectedItemForDeletionState)} type="hidden" />
+                  <input type="submit"></input>
+                </Form>
+              </div>
+            </div>
           </div>
+          <Navbar {...userData!}></Navbar>
           <WishListedItems
             setWishListedItemsComponentState={setComponentState}
             {...usersWishListedSales}
