@@ -13,7 +13,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     return redirect("", {
       headers: {
         "Set-Cookie": await userDataCookie.serialize({
-          showData: userData.data.discordAccountId,
+          userData: userData.data.discordAccountId,
         }),
       },
     });
