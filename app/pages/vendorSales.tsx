@@ -2,6 +2,7 @@ import CurrentVendorInventory from "~/components/currentVendorInventory";
 import Navbar from "~/components/navbar";
 import { type loaderData } from "~/utils/types";
 import { type currentVendorSalesLoaderData } from "~/utils/types";
+import { type userData } from "~/utils/types";
 
 /* type vendorData = {
   currentVendorSales: Array<object>;
@@ -10,11 +11,11 @@ import { type currentVendorSalesLoaderData } from "~/utils/types";
 
 export default function CurrentVendorInventoryPage(data: currentVendorSalesLoaderData) {
   console.log(data);
-
+  const userData: userData = data.value;
   return (
     <>
       <header>
-        <Navbar userData={data.value}></Navbar>
+        <Navbar userData={userData}></Navbar>
       </header>
       <main>
         <CurrentVendorInventory {...data}></CurrentVendorInventory>
