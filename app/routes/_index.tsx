@@ -20,7 +20,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
   }
   const vendorData = await loadCurrentVendorSales();
   if (value) {
-    return { vendorData, value };
+    const vendorDataWithUserId = {};
+    Object.assign(vendorDataWithUserId, vendorData, value);
+    return vendorDataWithUserId;
   }
   return { vendorData };
 }
