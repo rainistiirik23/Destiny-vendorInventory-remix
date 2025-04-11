@@ -54,13 +54,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
     return redirect("/vendorWishList", {
       headers: {
         "Set-Cookie": await userDataCookie.serialize({
-          showData: vendorData.data.discordAccountId,
+          userData: vendorData.data.discordAccountId,
         }),
       },
     });
   }
   if (value) {
-    const vendorData = await loadAllVendorSalesWithUsersWishListedSales(value.showData.id);
+    const vendorData = await loadAllVendorSalesWithUsersWishListedSales(value.userData.id);
     return json({ vendorData, value });
   }
   /*  const value = await userDataCookie.parse(request.headers.get("Cookie")); */
