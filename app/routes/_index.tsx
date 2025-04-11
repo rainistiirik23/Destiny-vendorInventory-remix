@@ -24,7 +24,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     Object.assign(vendorDataWithUserId, vendorData, value);
     return vendorDataWithUserId;
   }
-  return { vendorData };
+  return vendorData;
 }
 export function LinksFunction() {
   return [{ rel: "stylesheet", href: styles }];
