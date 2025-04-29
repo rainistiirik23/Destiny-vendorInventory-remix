@@ -88,13 +88,15 @@ export default function EditWishListedItem(props: editUserWishlistedItemProps) {
         })}
       </ul>
       <ul className="user-item-masterworks-info-container">
-        {matchingItemItemMasterworks.map((masterwork: unknown, masterworkIndex: number) => {
-          const doesMasterworkMatchWithIndex = wishListedItemMasterworks.findIndex((wishlistedItemMasterwork: any) => {
-            return (
-              wishlistedItemMasterwork.masterWorkName.replace("Tier 1:", "").trim() ===
-              masterwork.masterWorkName.replace("Tier 1:", "").trim()
-            );
-          });
+        {matchingItemItemMasterworks.map((masterwork: masterWorkType, masterworkIndex: number) => {
+          const doesMasterworkMatchWithIndex = wishListedItemMasterworks.findIndex(
+            (wishlistedItemMasterwork: masterWork) => {
+              return (
+                wishlistedItemMasterwork.masterWorkName.replace("Tier 1:", "").trim() ===
+                masterwork.masterWorkName.replace("Tier 1:", "").trim()
+              );
+            }
+          );
           if (masterwork.masterWorkName.includes("Tier 1") && doesMasterworkMatchWithIndex !== -1) {
             return (
               <li key={`masterwork-${masterworkIndex}`}>
