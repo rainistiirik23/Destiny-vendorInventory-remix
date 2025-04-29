@@ -6,7 +6,8 @@ import {
 } from "~/utils/types";
 import { useState } from "react";
 import { Form } from "@remix-run/react";
-export default function CreateWishListedItems(vendorData: vendorData) {
+import { ensureValueIsnotString } from "~/utils/helpers";
+export default function CreateWishListedItems(vendorData: createUserWishListedItemProps) {
   const allVendorSales = vendorData.vendorData.allVendorSales;
 
   /* const [showPerkList, setShowPerkListState] = useState<boolean>(false); */
