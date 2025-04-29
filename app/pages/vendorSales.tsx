@@ -9,7 +9,7 @@ import { type currentVendorSalesLoaderData } from "~/utils/types";
 
 export default function CurrentVendorInventoryPage(data: currentVendorSalesLoaderData) {
   console.log(data);
-  const userData: userData = data.value;
+  const userData = data.userData;
   return (
     <>
       <header>
