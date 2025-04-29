@@ -11,8 +11,12 @@ import { Form } from "@remix-run/react";
 import { safelyJsonParse, ensureValueIsNotNullOrUndefined } from "~/utils/helpers";
 export default function EditWishListedItem(props: editUserWishlistedItemProps) {
   /* console.log(props); */
-  const { wishListedItemEditInfo, setWishlistedItemEditStateFunction, allVendorSales, setComponentStateFunction } =
-    props;
+  const {
+    wishListedItemEditInfo,
+    setWishlistedItemEditStateFunction,
+    allVendorSales,
+    setWishListedItemsComponentState,
+  } = props;
   const wishListedItemPerks = JSON.parse(wishListedItemEditInfo.perks);
   const wishListedItemMasterworks = JSON.parse(wishListedItemEditInfo.masterworks);
   const matchingItem = allVendorSales.find((item: object) => {
