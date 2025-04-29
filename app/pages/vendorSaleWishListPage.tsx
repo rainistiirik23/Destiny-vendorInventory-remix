@@ -1,4 +1,3 @@
-import VendorSaleWishList from "~/components/vendorSaleWishlist";
 import Navbar from "~/components/navbar";
 import { useState } from "react";
 import { Form } from "@remix-run/react";
