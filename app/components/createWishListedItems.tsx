@@ -227,7 +227,7 @@ export default function CreateWishListedItems(vendorData: createUserWishListedIt
         </div>
         <div>
           <Form
-            onSubmit={(e) => {
+            onSubmit={() => {
               /*  e.preventDefault();
               saveWishListedItem(wishListedItemInfoState, vendorData.userData.showData); */
               console.log(vendorData.userData.showData);
