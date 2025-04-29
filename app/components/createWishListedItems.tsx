@@ -176,7 +176,7 @@ export default function CreateWishListedItems(vendorData: createUserWishListedIt
         </div>
         <div className="sale-item-masterwork-selection-container">
           <ul className="sale-item-masterwork-selection-unordered-list">
-            {selectedSaleItem.masterworks.map((masterWork, masterWorkIndex) => {
+            {ensureValueIsnotString(selectedSaleItem.masterworks).map((masterWork, masterWorkIndex) => {
               if (masterWork.masterWorkName.includes("Tier 1")) {
                 const doesMasterworkMatch = wishListedItemInfoState!.masterWorks.find((wishListedMasterwork) => {
                   return (
