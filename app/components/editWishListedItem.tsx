@@ -36,7 +36,7 @@ export default function EditWishListedItem(props: editUserWishlistedItemProps) {
         <h1>{wishListedItemEditInfo.item_name}</h1>
       </div>
       <ul className="user-item-perks-masterworks-info-container">
-        {Object.keys(matchingItemPerks).map((perkColumnKey: unknown, columnKeyIndex) => {
+        {Object.keys(matchingItemPerks).map((perkColumnKey: string, columnKeyIndex) => {
           return (
             <li key={`perkColumn${perkColumnKey}`}>
               <h2>{`Column ${columnKeyIndex + 1}`}</h2>
