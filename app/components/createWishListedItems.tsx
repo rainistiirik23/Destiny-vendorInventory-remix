@@ -226,14 +226,7 @@ export default function CreateWishListedItems(vendorData: createUserWishListedIt
           </ul>
         </div>
         <div>
-          <Form
-            onSubmit={() => {
-              /*  e.preventDefault();
-              saveWishListedItem(wishListedItemInfoState, vendorData.userData.showData); */
-              console.log(vendorData.userData.showData);
-            }}
-            method="POST"
-          >
+          <Form method="POST">
             <input name="data" type="hidden" value={JSON.stringify({ wishListedItemInfoState, userData })} />
             <input type="submit"></input>
           </Form>
