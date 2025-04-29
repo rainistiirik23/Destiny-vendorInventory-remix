@@ -43,7 +43,7 @@ export default function CreateWishListedItems(vendorData: createUserWishListedIt
                       className="sale-selection-item-button"
                       onClick={() => {
                         if (typeof saleItem.perks == "object") {
-                          setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
+                          setSelectedSaleItem(Object.assign({}, saleItem));
                           return;
                         }
                         const wishListedSaleItemObject: wishListedItemInfoStateType = {
@@ -66,7 +66,7 @@ export default function CreateWishListedItems(vendorData: createUserWishListedIt
                         saleItem.stats = JSON.parse(saleItem.stats as string);
                         console.log(saleItem);
 
-                        setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
+                        setSelectedSaleItem(Object.assign({}, saleItem));
                       }}
                     >
                       <img src={`http://www.bungie.net${saleItem.item_icon}`} alt="" />
@@ -80,7 +80,7 @@ export default function CreateWishListedItems(vendorData: createUserWishListedIt
                       className="sale-selection-item-button"
                       onClick={() => {
                         if (typeof saleItem.perks == "object") {
-                          setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
+                          setSelectedSaleItem(Object.assign({}, saleItem));
                           return;
                         }
                         const wishListedSaleItemObject = {
@@ -94,7 +94,7 @@ export default function CreateWishListedItems(vendorData: createUserWishListedIt
                         saleItem.perks = JSON.parse(saleItem.perks as string);
                         saleItem.masterworks = JSON.parse(saleItem.masterworks as string);
                         saleItem.stats = JSON.parse(saleItem.stats as string);
-                        setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
+                        setSelectedSaleItem(Object.assign({}, saleItem));
                       }}
                     >
                       <img src={`http://www.bungie.net${saleItem.item_icon}`} alt="" />
@@ -262,7 +262,7 @@ export default function CreateWishListedItems(vendorData: createUserWishListedIt
                     className="sale-selection-item-button"
                     onClick={() => {
                       if (typeof saleItem.perks == "object") {
-                        setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
+                        setSelectedSaleItem(Object.assign({}, saleItem));
                         return;
                       }
 
@@ -278,7 +278,7 @@ export default function CreateWishListedItems(vendorData: createUserWishListedIt
                       saleItem.masterworks = JSON.parse(saleItem.masterworks as string);
                       saleItem.stats = JSON.parse(saleItem.stats as string);
                       console.log(saleItem);
-                      setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
+                      setSelectedSaleItem(Object.assign({}, saleItem));
                     }}
                   >
                     <img src={`http://www.bungie.net${saleItem.item_icon}`} alt="" />
@@ -294,7 +294,7 @@ export default function CreateWishListedItems(vendorData: createUserWishListedIt
                       if (typeof saleItem.perks == "object") {
                         return;
                       }
-                      setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
+                      setSelectedSaleItem(Object.assign({}, saleItem));
                       const wishListedSaleItemObject = {
                         itemName: saleItem.item_name,
                         itemHash: saleItem.item_hash,
@@ -309,7 +309,7 @@ export default function CreateWishListedItems(vendorData: createUserWishListedIt
                       saleItem.masterworks = JSON.parse(saleItem.masterworks as string);
                       saleItem.stats = JSON.parse(saleItem.stats as string);
                       /*   console.log(saleItem); */
-                      setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
+                      setSelectedSaleItem(Object.assign({}, saleItem));
                     }}
                   >
                     <img src={`http://www.bungie.net${saleItem.item_icon}`} alt="" />
