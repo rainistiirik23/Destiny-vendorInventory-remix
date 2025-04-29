@@ -15,7 +15,7 @@ export default function CreateWishListedItems(vendorData: createUserWishListedIt
   const [itemSearchTerm, setitemSearchTerm] = useState<string | null>(null);
   const [selectedSaleItem, setSelectedSaleItem] = useState<allVendorSalesItem | null>(null);
   const [wishListedItemInfoState, setWishListedItemInfoState] = useState<wishListedItemInfoStateType | null>(null);
-  const userData = vendorData.showData;
+  const userData = vendorData.userData;
   console.log(selectedSaleItem);
 
   if (selectedSaleItem) {
