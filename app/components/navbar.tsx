@@ -24,7 +24,7 @@ export default function Navbar(userDataObject: userData) {
           <form action="/vendorWishList" method="POST">
             <button>Log out</button>
           </form>
-          <span>Logged in as {userData.global_name}</span>
+          <span>Logged in as {userDataObject.userData?.global_name}</span>
         </div>
       </div>
     );
