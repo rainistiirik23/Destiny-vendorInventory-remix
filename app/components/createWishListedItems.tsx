@@ -149,26 +149,29 @@ export default function CreateWishListedItems(vendorData: createUserWishListedIt
                               }
                               /* console.log(wishListedItemInfoState.perks["perkColumn1"]);
                           console.log(perkColumnKey); */
-                            wishListedItemInfoState!.perks[perkColumnKey].push(perk);
-                            setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
-                          }}
-                        >
-                          <img
-                            style={{ backgroundColor: "blue" }}
-                            src={`http://www.bungie.net${perk.perkIcon}`}
-                            alt=""
-                          />
-                        </button>
-                        <div className="sale-item-perk-info">
-                          <h3>{perk.perkName}</h3>
-                          <span>{perk.perkDescription}</span>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </>
-            );
+                              if (wishListedItemInfoState !== null) {
+                                wishListedItemInfoState.perks[perkColumnKey].push(perk);
+                                setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
+                              }
+                            }}
+                          >
+                            <img
+                              style={{ backgroundColor: "blue" }}
+                              src={`http://www.bungie.net${perk.perkIcon}`}
+                              alt=""
+                            />
+                          </button>
+                          <div className="sale-item-perk-info">
+                            <h3>{perk.perkName}</h3>
+                            <span>{perk.perkDescription}</span>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </>
+              );
+            }
           })}
         </div>
         <div className="sale-item-masterwork-selection-container">
