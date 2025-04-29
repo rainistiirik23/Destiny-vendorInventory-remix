@@ -1,8 +1,9 @@
 import { userData } from "~/utils/types";
 
-export default function Navbar(data: userData) {
-  const userData = data?.userData?.showData;
-  if (userData) {
+export default function Navbar(userDataObject: userData) {
+  /*  console.log(userDataObject); */
+
+  if (userDataObject.userData) {
     return (
       <div className="navigation-links-container">
         <nav>
