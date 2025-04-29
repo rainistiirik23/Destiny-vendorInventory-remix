@@ -1,4 +1,9 @@
-import { type vendorData, type allVendorSalesItem, wishListedItemInfoStateType } from "~/utils/types";
+import {
+  wishListedItemInfoStateType,
+  createUserWishListedItemProps,
+  type allVendorSalesItem,
+  type perk,
+} from "~/utils/types";
 import { useState } from "react";
 import { saveWishListedItem } from "~/utils/requests";
 import { Form } from "@remix-run/react";
