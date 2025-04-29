@@ -1,10 +1,5 @@
-import {
-  masterworkObjectArray,
-  perkObject,
-  type userWishListItem,
-  type usersWishlistedItemsFunctions,
-} from "~/utils/types";
-export default function WishListedItems(data: usersWishlistedItemsFunctions) {
+import { masterworkObjectArray, perkObject, type userWishListItem, wishListedVendorSalesProps } from "~/utils/types";
+export default function WishListedItems(data: wishListedVendorSalesProps) {
   const {
     usersWishListedSales,
     setWishListedItemsComponentState,
