@@ -43,7 +43,7 @@ export default function EditWishListedItem(props: editUserWishlistedItemProps) {
               <ul className="perks-unordered-list">
                 {matchingItemPerks[perkColumnKey].map((perk, perkIndex: number) => {
                   const doesPerkMatchWithIndex = wishListedItemPerks[perkColumnKey].findIndex(
-                    (wishlistedItemPerk: any) => {
+                    (wishlistedItemPerk: wishListedItemPerk) => {
                       return wishlistedItemPerk.perkName === perk.perkName;
                     }
                   );
