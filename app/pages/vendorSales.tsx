@@ -1,8 +1,6 @@
 import CurrentVendorInventory from "~/components/currentVendorInventory";
 import Navbar from "~/components/navbar";
-import { type loaderData } from "~/utils/types";
 import { type currentVendorSalesLoaderData } from "~/utils/types";
-import { type userData } from "~/utils/types";
 
 /* type vendorData = {
   currentVendorSales: Array<object>;
