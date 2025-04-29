@@ -137,8 +137,8 @@ export default function EditWishListedItem(props: editUserWishlistedItemProps) {
         })}
       </ul>
       <Form
-        onSubmit={(event) => {
-          setComponentStateFunction(null);
+        onSubmit={() => {
+          setWishListedItemsComponentState(null);
           setWishlistedItemEditStateFunction(null);
         }}
         method="PUT"
