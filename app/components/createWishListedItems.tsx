@@ -115,38 +115,39 @@ export default function CreateWishListedItems(vendorData: createUserWishListedIt
           </div>
         </div>
         <div className="sale-item-perks-selection-container">
-          {Object.keys(selectedSaleItem.perks).map((perkColumnKey, columnIndex) => {
-            return (
-              <>
-                <h2 className="perk-column-header">{`Column ${columnIndex + 1}`}</h2>
-                <ul
-                  className="sale-item-perks-selection-container-unordered-list"
-                  key={`${selectedSaleItem.item_name}-${perkColumnKey}`}
-                >
-                  {selectedSaleItem.perks[perkColumnKey].map((perk, perkIndex: number) => {
-                    const doesPerkMatch = wishListedItemInfoState!.perks[perkColumnKey].find((wishlistedPerk) => {
-                      return wishlistedPerk!.perkName === perk.perkName;
-                    });
-                    return (
-                      <li
-                        /*  className="sale-item-perk-list-item" */
-                        className={doesPerkMatch ? "sale-item-perk-list-item-active" : "sale-item-perk-list-item"}
-                        key={`${selectedSaleItem.item_name}-${perkColumnKey}-${perkIndex}`}
-                      >
-                        <button
-                          className="sale-item-perk-selection-button"
-                          onClick={() => {
-                            if (doesPerkMatch) {
-                              const findMatchedPerkIndex = wishListedItemInfoState!.perks[perkColumnKey].findIndex(
-                                (wishlistedPerk) => {
-                                  return wishlistedPerk!.perkName === perk.perkName;
-                                }
-                              );
-                              wishListedItemInfoState!.perks[perkColumnKey].splice(findMatchedPerkIndex, 1);
-                              setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
-                              return;
-                            }
-                            /* console.log(wishListedItemInfoState.perks["perkColumn1"]);
+          {Object.keys(selectedSaleItem.perks).map((perkColumnKey: string, columnIndex) => {
+            if (typeof selectedSaleItem.perks !== "string") {
+              return (
+                <>
+                  <h2 className="perk-column-header">{`Column ${columnIndex + 1}`}</h2>
+                  <ul
+                    className="sale-item-perks-selection-container-unordered-list"
+                    key={`${selectedSaleItem.item_name}-${perkColumnKey}`}
+                  >
+                    {selectedSaleItem.perks[perkColumnKey].map((perk: perk, perkIndex) => {
+                      const doesPerkMatch = wishListedItemInfoState!.perks[perkColumnKey].find((wishlistedPerk) => {
+                        return wishlistedPerk!.perkName === perk.perkName;
+                      });
+                      return (
+                        <li
+                          /*  className="sale-item-perk-list-item" */
+                          className={doesPerkMatch ? "sale-item-perk-list-item-active" : "sale-item-perk-list-item"}
+                          key={`${selectedSaleItem.item_name}-${perkColumnKey}-${perkIndex}`}
+                        >
+                          <button
+                            className="sale-item-perk-selection-button"
+                            onClick={() => {
+                              if (doesPerkMatch) {
+                                const findMatchedPerkIndex = wishListedItemInfoState!.perks[perkColumnKey].findIndex(
+                                  (wishlistedPerk) => {
+                                    return wishlistedPerk!.perkName === perk.perkName;
+                                  }
+                                );
+                                wishListedItemInfoState!.perks[perkColumnKey].splice(findMatchedPerkIndex, 1);
+                                setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
+                                return;
+                              }
+                              /* console.log(wishListedItemInfoState.perks["perkColumn1"]);
                           console.log(perkColumnKey); */
                             wishListedItemInfoState!.perks[perkColumnKey].push(perk);
                             setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
