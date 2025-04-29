@@ -5,7 +5,6 @@ import {
   type perk,
 } from "~/utils/types";
 import { useState } from "react";
-import { saveWishListedItem } from "~/utils/requests";
 import { Form } from "@remix-run/react";
 export default function CreateWishListedItems(vendorData: vendorData) {
   const allVendorSales = vendorData.vendorData.allVendorSales;
