@@ -19,12 +19,15 @@ export default function EditWishListedItem(props: editUserWishlistedItemProps) {
   } = props;
   const wishListedItemPerks = JSON.parse(wishListedItemEditInfo.perks);
   const wishListedItemMasterworks = JSON.parse(wishListedItemEditInfo.masterworks);
-  const matchingItem = allVendorSales.find((item: object) => {
-    return item.item_hash === wishListedItemEditInfo.item_hash;
-  });
+  const matchingItem: matchingItemType = ensureValueIsNotNullOrUndefined(
+    allVendorSales.find((item) => {
+      return item.item_hash === wishListedItemEditInfo.item_hash;
+    })
+  );
+  /* console.log(matchingItem); */
 
-  const matchingItemPerks = JSON.parse(matchingItem.perks);
-  const matchingItemItemMasterworks = JSON.parse(matchingItem.masterworks);
+  const matchingItemPerks = safelyJsonParse(matchingItem.perks) as matchingItemPerks;
+  const matchingItemItemMasterworks = safelyJsonParse(matchingItem.masterworks) as masterWorksArray;
   console.log(wishListedItemMasterworks);
   return (
     <div>
