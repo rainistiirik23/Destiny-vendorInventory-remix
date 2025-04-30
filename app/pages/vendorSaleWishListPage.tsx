@@ -39,7 +39,7 @@ export default function VendorWishlistPage(data: wishlistUserData) {
             wishListedItemEditInfo={wishlistedItemEditState as wishListedItemEditInfoType}
             allVendorSales={data.vendorData.allVendorSales}
             setWishlistedItemEditStateFunction={setWishlistedEditItemState}
-            setComponentStateFunction={setComponentState}
+            setWishListedItemsComponentState={setComponentState}
           ></EditWishListedItem>
         </main>
       );
