@@ -15,7 +15,6 @@ export function LinksFunction() {
 }
 export async function action({ request }: ActionFunctionArgs) {
   const body = (await request.formData()).get("data");
-  console.log(body);
   switch (request.method) {
     case "POST":
       if (body) {
