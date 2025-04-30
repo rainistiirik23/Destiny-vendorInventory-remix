@@ -1,4 +1,4 @@
-import { type LoaderFunctionArgs, type ActionFunctionArgs, json, redirect } from "@remix-run/node";
+import { type LoaderFunctionArgs, type ActionFunctionArgs, redirect } from "@remix-run/node";
 import { userDataCookie } from "~/utils/cookies";
 import { ShouldRevalidateFunctionArgs, useLoaderData } from "@remix-run/react";
 import { editWishListedItem, deleteWishListedItem, saveWishListedItem } from "~/utils/requests";
