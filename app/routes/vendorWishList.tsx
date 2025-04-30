@@ -9,6 +9,7 @@ import {
 } from "~/loaders/loadVendorData";
 import VendorWishlistPage from "~/pages/vendorSaleWishListPage";
 import styles from "~/styles/entry.css?url";
+import { type wishlistUserData } from "~/utils/types";
 export function LinksFunction() {
   return [{ rel: "stylesheet", href: styles }];
 }
