@@ -76,7 +76,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
   /*   session.set("userId", "1234"); */
   /*   console.log(value); */
 
-  console.log(value);
   const vendorData = await loadAllVendorSales();
 
   return json({ vendorData, value });
