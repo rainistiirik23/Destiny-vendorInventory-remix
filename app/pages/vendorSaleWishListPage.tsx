@@ -16,9 +16,8 @@ export default function VendorWishlistPage(data: wishlistUserData) {
   const usersWishListedSales = data.usersWishListedSales;
   const userData = data.userData;
   const [showComponentState, setComponentState] = useState<string | null>(null);
-  const [wishlistedItemEditState, setWishlistedEditItemState] = useState<object | null>(null);
-  const [selectedItemForDeletionState, setSelectedItemForDeletion] = useState<object | null>(null);
-  /*  console.log(data); */
+  const [wishlistedItemEditState, setWishlistedEditItemState] = useState<wishListedItemEditInfoType | null>(null);
+  const [selectedItemForDeletionState, setSelectedItemForDeletion] = useState<userWishListItem | null>(null);
 
   switch (showComponentState) {
     case "create-wishlisted-items":
