@@ -61,7 +61,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
   }
   if (value) {
     const vendorData = await loadAllVendorSalesWithUsersWishListedSales(value.userData.id);
-    return json({ vendorData, value });
+    const vendorDataWithUserId = {};
+    Object.assign(vendorDataWithUserId, vendorData, value);
+    return vendorDataWithUserId;
   }
   /*  const value = await userDataCookie.parse(request.headers.get("Cookie")); */
   /* if (value) {
