@@ -1,7 +1,5 @@
 import Navbar from "~/components/navbar";
 import { useState } from "react";
-import { Form } from "@remix-run/react";
-import DeleteWishListedItems from "~/components/deleteWishListedItems";
 import CreateWishListedItems from "~/components/createWishListedItems";
 import WishListedItems from "~/components/wishListedItems";
 import EditWishListedItem from "~/components/editWishListedItem";
