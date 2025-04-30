@@ -21,6 +21,7 @@ export default function VendorWishlistPage(data: wishlistUserData) {
 
   switch (showComponentState) {
     case "create-wishlisted-items":
+      ensureValueIsNotNullOrUndefined(userData);
       return (
         <main>
           <Navbar {...userData!}></Navbar>
