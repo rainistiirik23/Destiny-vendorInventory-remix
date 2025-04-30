@@ -36,8 +36,8 @@ export default function VendorWishlistPage(data: wishlistUserData) {
         <main>
           <Navbar userData={userData}></Navbar>
           <EditWishListedItem
-            wishListedItemEditInfo={wishlistedItemEditState}
-            allVendorSales={data.vendorData.data.vendorData.allVendorSales}
+            wishListedItemEditInfo={wishlistedItemEditState as wishListedItemEditInfoType}
+            allVendorSales={data.vendorData.allVendorSales}
             setWishlistedItemEditStateFunction={setWishlistedEditItemState}
             setComponentStateFunction={setComponentState}
           ></EditWishListedItem>
