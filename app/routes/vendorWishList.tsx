@@ -78,7 +78,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   const vendorData = await loadAllVendorSales();
 
-  return json({ vendorData, value });
+  return { vendorData, value };
 }
 
 export default function VendorWishlist() {
