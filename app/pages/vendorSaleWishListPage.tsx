@@ -34,7 +34,7 @@ export default function VendorWishlistPage(data: wishlistUserData) {
     case "edit-wishlisted-item":
       return (
         <main>
-          <Navbar {...userData!}></Navbar>
+          <Navbar userData={userData}></Navbar>
           <EditWishListedItem
             wishListedItemEditInfo={wishlistedItemEditState}
             allVendorSales={data.vendorData.data.vendorData.allVendorSales}
