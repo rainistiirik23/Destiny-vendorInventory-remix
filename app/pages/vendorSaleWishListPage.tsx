@@ -64,7 +64,7 @@ export default function VendorWishlistPage(data: wishlistUserData) {
     default:
       return (
         <main>
-          <Navbar {...userData!}></Navbar>
+          <Navbar userData={userData}></Navbar>
           <WishListedItems
             setWishListedItemsComponentState={setComponentState}
             usersWishListedSales={usersWishListedSales}
