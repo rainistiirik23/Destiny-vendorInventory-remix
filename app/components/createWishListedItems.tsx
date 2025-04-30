@@ -1,8 +1,13 @@
-import { type vendorData, type allVendorSalesItem, wishListedItemInfoStateType } from "~/utils/types";
+import {
+  wishListedItemInfoStateType,
+  createUserWishListedItemProps,
+  type allVendorSalesItem,
+  type perk,
+} from "~/utils/types";
 import { useState } from "react";
-import { saveWishListedItem } from "~/utils/requests";
 import { Form } from "@remix-run/react";
-export default function CreateWishListedItems(vendorData: vendorData) {
+import { ensureValueIsnotString } from "~/utils/helpers";
+export default function CreateWishListedItems(vendorData: createUserWishListedItemProps) {
   const allVendorSales = vendorData.vendorData.allVendorSales;
 
   /* const [showPerkList, setShowPerkListState] = useState<boolean>(false); */
@@ -10,7 +15,7 @@ export default function CreateWishListedItems(vendorData: vendorData) {
   const [itemSearchTerm, setitemSearchTerm] = useState<string | null>(null);
   const [selectedSaleItem, setSelectedSaleItem] = useState<allVendorSalesItem | null>(null);
   const [wishListedItemInfoState, setWishListedItemInfoState] = useState<wishListedItemInfoStateType | null>(null);
-  const userData = vendorData.showData;
+  const userData = vendorData.userData;
   console.log(selectedSaleItem);
 
   if (selectedSaleItem) {
@@ -38,7 +43,7 @@ export default function CreateWishListedItems(vendorData: vendorData) {
                       className="sale-selection-item-button"
                       onClick={() => {
                         if (typeof saleItem.perks == "object") {
-                          setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
+                          setSelectedSaleItem(Object.assign({}, saleItem));
                           return;
                         }
                         const wishListedSaleItemObject: wishListedItemInfoStateType = {
@@ -61,7 +66,7 @@ export default function CreateWishListedItems(vendorData: vendorData) {
                         saleItem.stats = JSON.parse(saleItem.stats as string);
                         console.log(saleItem);
 
-                        setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
+                        setSelectedSaleItem(Object.assign({}, saleItem));
                       }}
                     >
                       <img src={`http://www.bungie.net${saleItem.item_icon}`} alt="" />
@@ -75,7 +80,7 @@ export default function CreateWishListedItems(vendorData: vendorData) {
                       className="sale-selection-item-button"
                       onClick={() => {
                         if (typeof saleItem.perks == "object") {
-                          setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
+                          setSelectedSaleItem(Object.assign({}, saleItem));
                           return;
                         }
                         const wishListedSaleItemObject = {
@@ -89,7 +94,7 @@ export default function CreateWishListedItems(vendorData: vendorData) {
                         saleItem.perks = JSON.parse(saleItem.perks as string);
                         saleItem.masterworks = JSON.parse(saleItem.masterworks as string);
                         saleItem.stats = JSON.parse(saleItem.stats as string);
-                        setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
+                        setSelectedSaleItem(Object.assign({}, saleItem));
                       }}
                     >
                       <img src={`http://www.bungie.net${saleItem.item_icon}`} alt="" />
@@ -110,64 +115,68 @@ export default function CreateWishListedItems(vendorData: vendorData) {
           </div>
         </div>
         <div className="sale-item-perks-selection-container">
-          {Object.keys(selectedSaleItem.perks).map((perkColumnKey, columnIndex) => {
-            return (
-              <>
-                <h2 className="perk-column-header">{`Column ${columnIndex + 1}`}</h2>
-                <ul
-                  className="sale-item-perks-selection-container-unordered-list"
-                  key={`${selectedSaleItem.item_name}-${perkColumnKey}`}
-                >
-                  {selectedSaleItem.perks[perkColumnKey].map((perk, perkIndex: number) => {
-                    const doesPerkMatch = wishListedItemInfoState!.perks[perkColumnKey].find((wishlistedPerk) => {
-                      return wishlistedPerk!.perkName === perk.perkName;
-                    });
-                    return (
-                      <li
-                        /*  className="sale-item-perk-list-item" */
-                        className={doesPerkMatch ? "sale-item-perk-list-item-active" : "sale-item-perk-list-item"}
-                        key={`${selectedSaleItem.item_name}-${perkColumnKey}-${perkIndex}`}
-                      >
-                        <button
-                          className="sale-item-perk-selection-button"
-                          onClick={() => {
-                            if (doesPerkMatch) {
-                              const findMatchedPerkIndex = wishListedItemInfoState!.perks[perkColumnKey].findIndex(
-                                (wishlistedPerk) => {
-                                  return wishlistedPerk!.perkName === perk.perkName;
-                                }
-                              );
-                              wishListedItemInfoState!.perks[perkColumnKey].splice(findMatchedPerkIndex, 1);
-                              setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
-                              return;
-                            }
-                            /* console.log(wishListedItemInfoState.perks["perkColumn1"]);
-                          console.log(perkColumnKey); */
-                            wishListedItemInfoState!.perks[perkColumnKey].push(perk);
-                            setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
-                          }}
+          {Object.keys(selectedSaleItem.perks).map((perkColumnKey: string, columnIndex) => {
+            if (typeof selectedSaleItem.perks !== "string") {
+              return (
+                <>
+                  <h2 className="perk-column-header">{`Column ${columnIndex + 1}`}</h2>
+                  <ul
+                    className="sale-item-perks-selection-container-unordered-list"
+                    key={`${selectedSaleItem.item_name}-${perkColumnKey}`}
+                  >
+                    {selectedSaleItem.perks[perkColumnKey].map((perk: perk, perkIndex) => {
+                      const doesPerkMatch = wishListedItemInfoState!.perks[perkColumnKey].find((wishlistedPerk) => {
+                        return wishlistedPerk!.perkName === perk.perkName;
+                      });
+                      return (
+                        <li
+                          /*  className="sale-item-perk-list-item" */
+                          className={doesPerkMatch ? "sale-item-perk-list-item-active" : "sale-item-perk-list-item"}
+                          key={`${selectedSaleItem.item_name}-${perkColumnKey}-${perkIndex}`}
                         >
-                          <img
-                            style={{ backgroundColor: "blue" }}
-                            src={`http://www.bungie.net${perk.perkIcon}`}
-                            alt=""
-                          />
-                        </button>
-                        <div className="sale-item-perk-info">
-                          <h3>{perk.perkName}</h3>
-                          <span>{perk.perkDescription}</span>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </>
-            );
+                          <button
+                            className="sale-item-perk-selection-button"
+                            onClick={() => {
+                              if (doesPerkMatch) {
+                                const findMatchedPerkIndex = wishListedItemInfoState!.perks[perkColumnKey].findIndex(
+                                  (wishlistedPerk) => {
+                                    return wishlistedPerk!.perkName === perk.perkName;
+                                  }
+                                );
+                                wishListedItemInfoState!.perks[perkColumnKey].splice(findMatchedPerkIndex, 1);
+                                setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
+                                return;
+                              }
+                              /* console.log(wishListedItemInfoState.perks["perkColumn1"]);
+                          console.log(perkColumnKey); */
+                              if (wishListedItemInfoState !== null) {
+                                wishListedItemInfoState.perks[perkColumnKey].push(perk);
+                                setWishListedItemInfoState(Object.assign({}, wishListedItemInfoState));
+                              }
+                            }}
+                          >
+                            <img
+                              style={{ backgroundColor: "blue" }}
+                              src={`http://www.bungie.net${perk.perkIcon}`}
+                              alt=""
+                            />
+                          </button>
+                          <div className="sale-item-perk-info">
+                            <h3>{perk.perkName}</h3>
+                            <span>{perk.perkDescription}</span>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </>
+              );
+            }
           })}
         </div>
         <div className="sale-item-masterwork-selection-container">
           <ul className="sale-item-masterwork-selection-unordered-list">
-            {selectedSaleItem.masterworks.map((masterWork, masterWorkIndex) => {
+            {ensureValueIsnotString(selectedSaleItem.masterworks).map((masterWork, masterWorkIndex) => {
               if (masterWork.masterWorkName.includes("Tier 1")) {
                 const doesMasterworkMatch = wishListedItemInfoState!.masterWorks.find((wishListedMasterwork) => {
                   return (
@@ -217,14 +226,7 @@ export default function CreateWishListedItems(vendorData: vendorData) {
           </ul>
         </div>
         <div>
-          <Form
-            onSubmit={(e) => {
-              /*  e.preventDefault();
-              saveWishListedItem(wishListedItemInfoState, vendorData.userData.showData); */
-              console.log(vendorData.userData.showData);
-            }}
-            method="POST"
-          >
+          <Form method="POST">
             <input name="data" type="hidden" value={JSON.stringify({ wishListedItemInfoState, userData })} />
             <input type="submit"></input>
           </Form>
@@ -257,7 +259,7 @@ export default function CreateWishListedItems(vendorData: vendorData) {
                     className="sale-selection-item-button"
                     onClick={() => {
                       if (typeof saleItem.perks == "object") {
-                        setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
+                        setSelectedSaleItem(Object.assign({}, saleItem));
                         return;
                       }
 
@@ -273,7 +275,7 @@ export default function CreateWishListedItems(vendorData: vendorData) {
                       saleItem.masterworks = JSON.parse(saleItem.masterworks as string);
                       saleItem.stats = JSON.parse(saleItem.stats as string);
                       console.log(saleItem);
-                      setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
+                      setSelectedSaleItem(Object.assign({}, saleItem));
                     }}
                   >
                     <img src={`http://www.bungie.net${saleItem.item_icon}`} alt="" />
@@ -289,7 +291,7 @@ export default function CreateWishListedItems(vendorData: vendorData) {
                       if (typeof saleItem.perks == "object") {
                         return;
                       }
-                      setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
+                      setSelectedSaleItem(Object.assign({}, saleItem));
                       const wishListedSaleItemObject = {
                         itemName: saleItem.item_name,
                         itemHash: saleItem.item_hash,
@@ -304,7 +306,7 @@ export default function CreateWishListedItems(vendorData: vendorData) {
                       saleItem.masterworks = JSON.parse(saleItem.masterworks as string);
                       saleItem.stats = JSON.parse(saleItem.stats as string);
                       /*   console.log(saleItem); */
-                      setSelectedSaleItem(Object.assign({}, saleItem as allVendorSalesItem));
+                      setSelectedSaleItem(Object.assign({}, saleItem));
                     }}
                   >
                     <img src={`http://www.bungie.net${saleItem.item_icon}`} alt="" />

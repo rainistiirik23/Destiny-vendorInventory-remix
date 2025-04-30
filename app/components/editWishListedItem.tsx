@@ -1,16 +1,33 @@
-import { Form, useNavigate, useSubmit } from "@remix-run/react";
-export default function EditWishListedItem(props: any) {
+import {
+  matchingItem as matchingItemType,
+  editUserWishlistedItemProps,
+  matchingItemPerks,
+  wishListedItemPerk,
+  masterWorkType,
+  masterWorksArray,
+  masterWork,
+} from "../utils/types";
+import { Form } from "@remix-run/react";
+import { safelyJsonParse, ensureValueIsNotNullOrUndefined } from "~/utils/helpers";
+export default function EditWishListedItem(props: editUserWishlistedItemProps) {
   /* console.log(props); */
-  const { wishListedItemEditInfo, setWishlistedItemEditStateFunction, allVendorSales, setComponentStateFunction } =
-    props;
+  const {
+    wishListedItemEditInfo,
+    setWishlistedItemEditStateFunction,
+    allVendorSales,
+    setWishListedItemsComponentState,
+  } = props;
   const wishListedItemPerks = JSON.parse(wishListedItemEditInfo.perks);
   const wishListedItemMasterworks = JSON.parse(wishListedItemEditInfo.masterworks);
-  const matchingItem = allVendorSales.find((item: object) => {
-    return item.item_hash === wishListedItemEditInfo.item_hash;
-  });
+  const matchingItem: matchingItemType = ensureValueIsNotNullOrUndefined(
+    allVendorSales.find((item) => {
+      return item.item_hash === wishListedItemEditInfo.item_hash;
+    })
+  );
+  /* console.log(matchingItem); */
 
-  const matchingItemPerks = JSON.parse(matchingItem.perks);
-  const matchingItemItemMasterworks = JSON.parse(matchingItem.masterworks);
+  const matchingItemPerks = safelyJsonParse(matchingItem.perks) as matchingItemPerks;
+  const matchingItemItemMasterworks = safelyJsonParse(matchingItem.masterworks) as masterWorksArray;
   console.log(wishListedItemMasterworks);
   return (
     <div>
@@ -19,14 +36,14 @@ export default function EditWishListedItem(props: any) {
         <h1>{wishListedItemEditInfo.item_name}</h1>
       </div>
       <ul className="user-item-perks-masterworks-info-container">
-        {Object.keys(matchingItemPerks).map((perkColumnKey: unknown, columnKeyIndex) => {
+        {Object.keys(matchingItemPerks).map((perkColumnKey: string, columnKeyIndex) => {
           return (
             <li key={`perkColumn${perkColumnKey}`}>
               <h2>{`Column ${columnKeyIndex + 1}`}</h2>
               <ul className="perks-unordered-list">
-                {matchingItemPerks[perkColumnKey].map((perk: unknown, perkIndex: number) => {
+                {matchingItemPerks[perkColumnKey].map((perk, perkIndex: number) => {
                   const doesPerkMatchWithIndex = wishListedItemPerks[perkColumnKey].findIndex(
-                    (wishlistedItemPerk: any) => {
+                    (wishlistedItemPerk: wishListedItemPerk) => {
                       return wishlistedItemPerk.perkName === perk.perkName;
                     }
                   );
@@ -71,13 +88,15 @@ export default function EditWishListedItem(props: any) {
         })}
       </ul>
       <ul className="user-item-masterworks-info-container">
-        {matchingItemItemMasterworks.map((masterwork: unknown, masterworkIndex: number) => {
-          const doesMasterworkMatchWithIndex = wishListedItemMasterworks.findIndex((wishlistedItemMasterwork: any) => {
-            return (
-              wishlistedItemMasterwork.masterWorkName.replace("Tier 1:", "").trim() ===
-              masterwork.masterWorkName.replace("Tier 1:", "").trim()
-            );
-          });
+        {matchingItemItemMasterworks.map((masterwork: masterWorkType, masterworkIndex: number) => {
+          const doesMasterworkMatchWithIndex = wishListedItemMasterworks.findIndex(
+            (wishlistedItemMasterwork: masterWork) => {
+              return (
+                wishlistedItemMasterwork.masterWorkName.replace("Tier 1:", "").trim() ===
+                masterwork.masterWorkName.replace("Tier 1:", "").trim()
+              );
+            }
+          );
           if (masterwork.masterWorkName.includes("Tier 1") && doesMasterworkMatchWithIndex !== -1) {
             return (
               <li key={`masterwork-${masterworkIndex}`}>
@@ -118,8 +137,8 @@ export default function EditWishListedItem(props: any) {
         })}
       </ul>
       <Form
-        onSubmit={(event) => {
-          setComponentStateFunction(null);
+        onSubmit={() => {
+          setWishListedItemsComponentState(null);
           setWishlistedItemEditStateFunction(null);
         }}
         method="PUT"

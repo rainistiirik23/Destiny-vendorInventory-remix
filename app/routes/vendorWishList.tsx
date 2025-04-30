@@ -1,4 +1,4 @@
-import { type LoaderFunctionArgs, type ActionFunctionArgs, json, redirect } from "@remix-run/node";
+import { type LoaderFunctionArgs, type ActionFunctionArgs, redirect } from "@remix-run/node";
 import { userDataCookie } from "~/utils/cookies";
 import { ShouldRevalidateFunctionArgs, useLoaderData } from "@remix-run/react";
 import { editWishListedItem, deleteWishListedItem, saveWishListedItem } from "~/utils/requests";
@@ -9,12 +9,12 @@ import {
 } from "~/loaders/loadVendorData";
 import VendorWishlistPage from "~/pages/vendorSaleWishListPage";
 import styles from "~/styles/entry.css?url";
+import { type wishlistUserData } from "~/utils/types";
 export function LinksFunction() {
   return [{ rel: "stylesheet", href: styles }];
 }
 export async function action({ request }: ActionFunctionArgs) {
   const body = (await request.formData()).get("data");
-  console.log(body);
   switch (request.method) {
     case "POST":
       if (body) {
@@ -54,14 +54,16 @@ export async function loader({ request }: LoaderFunctionArgs) {
     return redirect("/vendorWishList", {
       headers: {
         "Set-Cookie": await userDataCookie.serialize({
-          showData: vendorData.data.discordAccountId,
+          userData: vendorData.data.discordAccountId,
         }),
       },
     });
   }
   if (value) {
-    const vendorData = await loadAllVendorSalesWithUsersWishListedSales(value.showData.id);
-    return json({ vendorData, value });
+    const vendorData = await loadAllVendorSalesWithUsersWishListedSales(value.userData.id);
+    const vendorDataWithUserId = {};
+    Object.assign(vendorDataWithUserId, vendorData, value);
+    return vendorDataWithUserId;
   }
   /*  const value = await userDataCookie.parse(request.headers.get("Cookie")); */
   /* if (value) {
@@ -74,15 +76,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
   /*   session.set("userId", "1234"); */
   /*   console.log(value); */
 
-  console.log(value);
   const vendorData = await loadAllVendorSales();
 
-  return json({ vendorData, value });
+  return { vendorData, value };
 }
 
 export default function VendorWishlist() {
-  const loaderData = useLoaderData<typeof loader>();
-  /*   console.log(loaderData); */
+  const loaderData = useLoaderData<typeof loader>() as wishlistUserData;
 
   return <VendorWishlistPage {...loaderData}></VendorWishlistPage>;
 }

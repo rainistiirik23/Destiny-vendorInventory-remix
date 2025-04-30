@@ -1,4 +1,44 @@
-export type userWishListItem = {
+export type allVendorSalesItem = {
+  id: number;
+  item_flavorText: string;
+  item_hash: number;
+  item_icon: string;
+  item_name: string;
+  item_type_and_tier_display_name: string;
+  item_type_display_name: string;
+  masterworks: string | masterWorksArray;
+  perks: string | perkObject;
+  stats:
+    | string
+    | Array<{
+        description: string;
+        statName: string;
+        statValue: number;
+      }>;
+  vendor_id: number;
+};
+export type selectedVendorSaleItem = {
+  id: number;
+  item_flavorText: string;
+  item_hash: number;
+  item_icon: string;
+  item_name: string;
+  item_type_and_tier_display_name: string;
+  item_type_display_name: string;
+  masterworks: masterWorksArray;
+  perks: perkObject;
+  stats:
+    | string
+    | Array<{
+        description: string;
+        statName: string;
+        statValue: number;
+      }>;
+  vendor_id: number;
+};
+export type allVendorSalesData = Array<allVendorSalesItem>;
+
+type usersWishListedSales = Array<{
   id: number;
   item_name: string;
   item_icon: string;
@@ -10,58 +50,115 @@ export type userWishListItem = {
   perks: string;
   masterworks: string;
   user_id: string;
-};
-export type matchingItem = {
+}>;
+export type userWishListItem = {
   id: number;
-  vendorId: number;
-  itemManifestID: number;
-  itemName: string;
-  itemIcon: string;
+  item_name: string;
+  item_icon: string;
   item_hash: number;
-  itemTypeDisplayName: string;
   itemFlavorText: string;
-  itemTypeAndTierDisplayName: string;
-  itemSaleKey: number;
   perks: string;
   masterworks: string;
+  user_id: string;
+};
+export type masterWorkType = {
+  masterWorkDescription: string;
+  masterWorkHash: number | string;
+  masterWorkIcon: string;
+  masterWorkName: string;
 };
 
-export type usersWishlistedItemsFunctions = {
-  setWishListedItemsComponentState(componentName: string): void;
-  setWishlistedItemEditStateFunction(userWishListItem: userWishListItem): void;
-  setSelectedItemForDeletionFunction(userWishListItem: userWishListItem): void;
-  usersWishListedSales: Array<{
+export type wishListedItemPerk = {
+  perkDescription: string;
+  perkHash: number;
+  perkIcon: string;
+  perkName: string;
+};
+export type perkObject = {
+  [perkColumn: string]: Array<{
+    perkDescription: string;
+    perkHash: number;
+    perkIcon: string;
+    perkName: string;
+  }>;
+};
+export type perk = {
+  perkDescription: string;
+  perkHash: number;
+  perkIcon: string;
+  perkName: string;
+};
+export type matchingItemPerks = {
+  [perkColumn: string]: Array<{
+    perkDescription: string;
+    perkHash: number;
+    perkIcon: string;
+    perkName: string;
+  }>;
+};
+export type masterWork = {
+  masterWorkDescription: string;
+  masterWorkHash: number;
+  masterWorkIcon: string;
+  masterWorkName: string;
+};
+export type masterWorksArray = Array<masterWork>;
+
+export type matchingItem = {
+  id: number;
+  item_name: string;
+  item_icon: string;
+  item_hash: number;
+  perks: string | perkObject;
+  masterworks: string | masterWorksArray;
+};
+export type wishListedItemEditInfoType = {
+  id: number;
+  item_name: string;
+  item_icon: string;
+  item_hash: number;
+  itemFlavorText: string;
+  perks: string;
+  masterworks: string;
+  user_id: string;
+};
+
+export interface wishListComponentStateFunctionProp {
+  setWishListedItemsComponentState(componentName: string | null): void;
+}
+export interface wishListedVendorSalesProps extends wishListComponentStateFunctionProp {
+  setWishlistedItemEditStateFunction(wishListedItemEditInfo: wishListedItemEditInfoType | null): void;
+  setSelectedItemForDeletionFunction(wishListedItemEditInfo: userWishListItem | null): void;
+  usersWishListedSales: usersWishListedSales | undefined;
+}
+export interface deleteUserWishlistedItemProps extends wishListComponentStateFunctionProp {
+  setSelectedItemForDeletionFunction(userWishListItem: userWishListItem | null): void;
+  selectedItemForDeletion: {
     id: number;
     item_name: string;
     item_icon: string;
     item_hash: number;
-    itemTypeDisplayName: string;
-    itemFlavorText: string;
-    itemTypeAndTierDisplayName: string;
-    itemSaleKey: number;
     perks: string;
     masterworks: string;
     user_id: string;
-  }>;
+  } | null;
+}
+export type requiredUserData = {
+  global_name: string;
+  id: string;
+  username: string;
 };
-export type usersWishlistedItemEditFunctions = {
-  setWishListedItemsComponentState(componentName: string): void;
-  setWishlistedItemEditStateFunction(userWishListItem: userWishListItem): void;
-  setSelectedItemForDeletionFunction(userWishListItem: userWishListItem): void;
-  allVendorSales: Array<{
-    id: number;
-    vendorId: number;
-    itemManifestID: number;
-    itemName: string;
-    itemIcon: string;
-    itemHash: number;
-    itemTypeDisplayName: string;
-    itemFlavorText: string;
-    itemTypeAndTierDisplayName: string;
-    itemSaleKey: number;
-    perks: string;
-    masterworks: string;
-  }>;
+export interface createUserWishListedItemProps {
+  userData: {
+    global_name: string;
+    id: string;
+    username: string;
+  };
+  vendorData: { allVendorSales: allVendorSalesData };
+}
+export interface editUserWishlistedItemProps extends wishListComponentStateFunctionProp {
+  setWishlistedItemEditStateFunction(userWishListItem: userWishListItem | null): void;
+  allVendorSales: allVendorSalesData;
 
   wishListedItemEditInfo: {
     id: number;
@@ -73,94 +170,69 @@ export type usersWishlistedItemEditFunctions = {
     masterworks: string;
     user_id: string;
   };
+}
+export type userData = {
+  userData:
+    | {
+        global_name: string;
+        id: string;
+        username: string;
+      }
+    | undefined;
 };
 
-export type wishlistData = {
-  value: null | { showData: { global_name: string; id: string } };
+export interface wishlistUserData {
   vendorData: {
-    data: {
-      vendorData: {
-        allVendorSales: Array<{
-          id: number;
-          vendorId: number;
-          itemManifestID: number;
-          itemName: string;
-          itemIcon: string;
-          itemHash: number;
-          itemTypeDisplayName: string;
-          itemFlavorText: string;
-          itemTypeAndTierDisplayName: string;
-          itemSaleKey: number;
-          perks: string;
-        }>;
-      };
-      usersWishListedSales?: Array<{
-        id: number;
-        item_name: string;
-        item_icon: string;
-        item_hash: number;
-        itemTypeDisplayName: string;
-        itemFlavorText: string;
-        itemTypeAndTierDisplayName: string;
-        itemSaleKey: number;
-        perks: string;
-        masterworks: string;
-        user_id: string;
-      }>;
-    };
+    allVendorSales: allVendorSalesData;
   };
-};
-export type userData = {
-  showData: {
+  usersWishListedSales: usersWishListedSales | undefined;
+  userData:
+    | {
+        global_name: string;
+        id: string;
+        username: string;
+      }
+    | undefined;
+}
+/* export interface possiblyUndefinedUserDataWithVendordata extends wishlistUserData {
+  userData?: {
     global_name: string;
     id: string;
+    username: string;
   };
-};
+}
+export interface requiredUserDataWithVendorData extends wishlistUserData {
+  userData: {
+    global_name: string;
+    id: string;
+    username: string;
+  };
+} */
+
 export type currentVendorSalesLoaderData = {
-  data: {
-    vendorData: {
-      currentVendorSales: Array<{
-        id: number;
-        vendorId: number;
-        itemManifestID: number;
-        itemName: string;
-        itemIcon: string;
-        itemHash: number;
-        itemTypeDisplayName: string;
-        itemFlavorText: string;
-        itemTypeAndTierDisplayName: string;
-        itemSaleKey: number;
-        perks: string;
-        masterWork: string;
-      }>;
-    };
+  vendorData: {
+    currentVendorSales: Array<{
+      id: number;
+      vendorId: number;
+      itemManifestID: number;
+      itemName: string;
+      itemIcon: string;
+      itemHash: number;
+      itemTypeDisplayName: string;
+      itemFlavorText: string;
+      itemTypeAndTierDisplayName: string;
+      itemSaleKey: number;
+      perks: string;
+      masterWork: string;
+    }>;
   };
-};
-export type perkObject = {
-  [perkColumn1: string]: Array<{
-    perkDescription: string;
-    perkHash: number;
-    perkIcon: string;
-    perkName: string;
-  }>;
-  perkColumn2: Array<{
-    perkDescription: string;
-    perkHash: number;
-    perkIcon: string;
-    perkName: string;
-  }>;
-  perkColumn3: Array<{
-    perkDescription: string;
-    perkHash: number;
-    perkIcon: string;
-    perkName: string;
-  }>;
-  perkColumn4: Array<{
-    perkDescription: string;
-    perkHash: number;
-    perkIcon: string;
-    perkName: string;
-  }>;
+  userData:
+    | {
+        global_name: string;
+        id: string;
+        username: string;
+      }
+    | undefined;
 };
 export type masterworkObjectArray = Array<{
   masterWorkDescription: string;
@@ -168,147 +240,15 @@ export type masterworkObjectArray = Array<{
   masterWorkIcon: string;
   masterWorkName: string;
 }>;
-
-export type vendorData = {
-  currentVendorSales: Array<{
-    id?: number;
-    vendorId?: number;
-    itemManifestID?: number;
-    itemName?: string;
-    itemIcon?: string;
-    itemHash?: number;
-    itemTypeDisplayName?: string;
-    itemFlavorText?: string;
-    itemTypeAndTierDisplayName?: string;
-    itemSaleKey?: number;
-    perks?: string;
-  }>;
-  showData: {
-    id: string;
-    global_name: string;
-  };
-  vendorData: {
-    allVendorSales: Array<{
-      id: number;
-      item_flavorText: string;
-      item_hash: number;
-      item_icon: string;
-      item_name: string;
-      item_type_and_tier_display_name: string;
-      item_type_display_name: string;
-      masterworks:
-        | string
-        | Array<{
-            masterWorkDescription: string;
-            masterWorkHash: number;
-            masterWorkIcon: string;
-            masterWorkName: string;
-          }>;
-      perks:
-        | string
-        | {
-            perkColumn1: Array<{
-              perkDescription: string;
-              perkHash: number;
-              perkIcon: string;
-              perkName: string;
-            }>;
-            perkColumn2: Array<{
-              perkDescription: string;
-              perkHash: number;
-              perkIcon: string;
-              perkName: string;
-            }>;
-            perkColumn3: Array<{
-              perkDescription: string;
-              perkHash: number;
-              perkIcon: string;
-              perkName: string;
-            }>;
-            perkColumn4: Array<{
-              perkDescription: string;
-              perkHash: number;
-              perkIcon: string;
-              perkName: string;
-            }>;
-          };
-      stats:
-        | string
-        | Array<{
-            description: string;
-            statName: string;
-            statValue: number;
-          }>;
-      vendor_id: number;
-    }>;
-  };
-};
-export type allVendorSalesItem = {
-  id: number;
-  item_flavorText: string;
-  item_hash: number;
-  item_icon: string;
-  item_name: string;
-  item_type_and_tier_display_name: string;
-  item_type_display_name: string;
-  masterworks: Array<{
-    masterWorkDescription: string;
-    masterWorkHash: number;
-    masterWorkIcon: string;
-    masterWorkName: string;
-  }>;
-  perks: {
-    [perkColumn1: string]: Array<{
-      perkDescription: string;
-      perkHash: number;
-      perkIcon: string;
-      perkName: string;
-    }>;
-    perkColumn2: Array<{
-      perkDescription: string;
-      perkHash: number;
-      perkIcon: string;
-      perkName: string;
-    }>;
-    perkColumn3: Array<{
-      perkDescription: string;
-      perkHash: number;
-      perkIcon: string;
-      perkName: string;
-    }>;
-    perkColumn4: Array<{
-      perkDescription: string;
-      perkHash: number;
-      perkIcon: string;
-      perkName: string;
-    }>;
-  };
-  stats: Array<{
-    description: string;
-    statName: string;
-    statValue: number;
-  }>;
-  vendor_id: number;
-};
 export type wishListedItemInfoStateType = {
   itemName: string;
   itemHash: number;
   itemIcon: string;
-  perks: {
-    [perkColumn1: string]: Array<{
-      perkDescription: string;
-      perkHash: number;
-      perkIcon: string;
-      perkName: string;
-    } | null>;
-    perkColumn2: Array<{ perkDescription: string; perkHash: number; perkIcon: string; perkName: string } | null>;
-    perkColumn3: Array<{ perkDescription: string; perkHash: number; perkIcon: string; perkName: string } | null>;
-    perkColumn4: Array<{ perkDescription: string; perkHash: number; perkIcon: string; perkName: string } | null>;
-  };
-  masterWorks: Array<{
-    masterWorkDescription: string;
-    masterWorkHash: number;
-    masterWorkIcon: string;
-    masterWorkName: string;
-  }>;
+  perks:
+    | perkObject
+    | {
+        [perkColumn: string]: perk[];
+      };
+
+  masterWorks: masterWorksArray;
 };

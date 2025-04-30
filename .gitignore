@@ -3,3 +3,7 @@ node_modules
 /.cache
 /build
 .env
+app/entry.client.tsx
+app/entry.server.tsx
+app/styles/entry.css
+app/styles/entry.css.map

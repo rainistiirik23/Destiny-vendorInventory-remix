@@ -25,5 +25,5 @@ export async function loadAllVendorSales() {
 export async function loadAllVendorSalesWithUsersWishListedSales(userID: unknown) {
   const usersWishListedSales = await getVendorSalesWithUsersWishListedSales(userID);
   const vendorData = await getAllVendorSales();
-  return { data: { vendorData, usersWishListedSales } };
+  return { vendorData, usersWishListedSales };
 }

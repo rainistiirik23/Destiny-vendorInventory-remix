@@ -5,6 +5,7 @@ import { loadCurrentVendorSales, loadCurrentVendorSalesWithDiscordId } from "~/l
 import CurrentVendorInventoryPage from "~/pages/vendorSales";
 import { LoaderFunctionArgs, redirect } from "@remix-run/node";
 import { userDataCookie } from "~/utils/cookies";
+import { currentVendorSalesLoaderData } from "~/utils/types";
 export async function loader({ request }: LoaderFunctionArgs) {
   const code = new URL(request.url).searchParams.get("code");
   const value = await userDataCookie.parse(request.headers.get("Cookie"));
@@ -13,22 +14,24 @@ export async function loader({ request }: LoaderFunctionArgs) {
     return redirect("", {
       headers: {
         "Set-Cookie": await userDataCookie.serialize({
-          showData: userData.data.discordAccountId,
+          userData: (await userData).data.discordAccountId,
         }),
       },
     });
   }
   const vendorData = await loadCurrentVendorSales();
   if (value) {
-    return { vendorData, value };
+    const vendorDataWithUserId = {};
+    Object.assign(vendorDataWithUserId, vendorData, value);
+    return vendorDataWithUserId;
   }
-  return { vendorData };
+  return vendorData;
 }
 export function LinksFunction() {
   return [{ rel: "stylesheet", href: styles }];
 }
 export default function VendorWishlist() {
-  const vendorData = useLoaderData<typeof loader>();
+  const vendorData = useLoaderData<typeof loader>() as currentVendorSalesLoaderData;
   /*   console.log(vendorData); */
 
   return <CurrentVendorInventoryPage {...vendorData}></CurrentVendorInventoryPage>;

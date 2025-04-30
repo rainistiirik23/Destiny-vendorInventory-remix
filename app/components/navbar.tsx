@@ -1,10 +1,9 @@
 import { userData } from "~/utils/types";
 
-export default function Navbar(data: userData) {
-  /*   console.log(data); */
+export default function Navbar(userDataObject: userData) {
+  /*  console.log(userDataObject); */
 
-  const userData = data.showData;
-  if (userData) {
+  if (userDataObject.userData) {
     return (
       <div className="navigation-links-container">
         <nav>
@@ -25,7 +24,7 @@ export default function Navbar(data: userData) {
           <form action="/vendorWishList" method="POST">
             <button>Log out</button>
           </form>
-          <span>Logged in as {userData.global_name}</span>
+          <span>Logged in as {userDataObject.userData?.global_name}</span>
         </div>
       </div>
     );

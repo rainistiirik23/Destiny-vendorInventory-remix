@@ -1,6 +1,6 @@
 import { perkObject, type currentVendorSalesLoaderData } from "~/utils/types";
 export default function CurrentVendorInventory(vendorData: currentVendorSalesLoaderData) {
-  const currentVendorSales = vendorData.vendorData.vendorData.currentVendorSales;
+  const currentVendorSales = vendorData.vendorData.currentVendorSales;
   /*  console.log(vendorData); */
   return (
     <div>
