@@ -82,8 +82,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function VendorWishlist() {
-  const loaderData = useLoaderData<typeof loader>();
-  /*   console.log(loaderData); */
+  const loaderData = useLoaderData<typeof loader>() as wishlistUserData;
 
   return <VendorWishlistPage {...loaderData}></VendorWishlistPage>;
 }
