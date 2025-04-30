@@ -24,8 +24,11 @@ export default function VendorWishlistPage(data: wishlistUserData) {
       ensureValueIsNotNullOrUndefined(userData);
       return (
         <main>
-          <Navbar {...userData!}></Navbar>
-          <CreateWishListedItems {...userData!} {...vendorSales}></CreateWishListedItems>
+          <Navbar userData={userData}></Navbar>
+          <CreateWishListedItems
+            userData={userData as requiredUserData}
+            vendorData={vendorSales}
+          ></CreateWishListedItems>
         </main>
       );
     case "edit-wishlisted-item":
