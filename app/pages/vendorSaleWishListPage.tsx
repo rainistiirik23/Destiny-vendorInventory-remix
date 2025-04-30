@@ -3,11 +3,18 @@ import { useState } from "react";
 import CreateWishListedItems from "~/components/createWishListedItems";
 import WishListedItems from "~/components/wishListedItems";
 import EditWishListedItem from "~/components/editWishListedItem";
-import { type wishlistData } from "~/utils/types";
-export default function VendorWishlistPage(data: wishlistData) {
-  const vendorSales = data.vendorData.data;
-  const usersWishListedSales = data.vendorData.data;
-  const userData = data.value;
+import DeleteWishListedItems from "~/components/deleteWishListedItems";
+import {
+  requiredUserData,
+  wishlistUserData,
+  type userWishListItem,
+  type wishListedItemEditInfoType,
+} from "~/utils/types";
+import { ensureValueIsNotNullOrUndefined } from "~/utils/helpers";
+export default function VendorWishlistPage(data: wishlistUserData) {
+  const vendorSales = data.vendorData;
+  const usersWishListedSales = data.usersWishListedSales;
+  const userData = data.userData;
   const [showComponentState, setComponentState] = useState<string | null>(null);
   const [wishlistedItemEditState, setWishlistedEditItemState] = useState<object | null>(null);
   const [selectedItemForDeletionState, setSelectedItemForDeletion] = useState<object | null>(null);
