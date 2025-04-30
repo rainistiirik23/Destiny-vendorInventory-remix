@@ -54,8 +54,9 @@ export default function VendorWishlistPage(data: wishlistUserData) {
           <Navbar userData={userData}></Navbar>
           <WishListedItems
             setWishListedItemsComponentState={setComponentState}
-            {...usersWishListedSales}
+            usersWishListedSales={usersWishListedSales}
             setWishlistedItemEditStateFunction={setWishlistedEditItemState}
+            setSelectedItemForDeletionFunction={setSelectedItemForDeletion}
           ></WishListedItems>
         </main>
       );
@@ -66,11 +67,10 @@ export default function VendorWishlistPage(data: wishlistUserData) {
           <Navbar {...userData!}></Navbar>
           <WishListedItems
             setWishListedItemsComponentState={setComponentState}
-            {...usersWishListedSales}
+            usersWishListedSales={usersWishListedSales}
             setWishlistedItemEditStateFunction={setWishlistedEditItemState}
             setSelectedItemForDeletionFunction={setSelectedItemForDeletion}
           ></WishListedItems>
-          {/*  <VendorSaleWishList userData={userData} {...vendorSales}></VendorSaleWishList> */}
         </main>
       );
   }
