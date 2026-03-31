@@ -1,0 +1,182 @@
+.edit-wishlisted-item-container {
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+  }
+  input {
+    border: none;
+    background: none;
+  }
+  button {
+    border: none;
+    background: none;
+  }
+  .wishlisted-item-info-container {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 46px;
+  }
+  .wishlisted-item-perks-header {
+    margin-bottom: 46px;
+    margin-left: 30px;
+  }
+  .edit-user-item-perks-masterworks-unordered-list {
+    display: flex;
+    flex-direction: column;
+    gap: 46px;
+    margin-left: 30px;
+    margin-bottom: 46px;
+  }
+  .edit-user-item-perks-masterworks-unordered-list-item {
+    display: flex;
+    flex-direction: column;
+    gap: 46px;
+  }
+  .perks-unordered-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 119px;
+    margin-bottom: 46px;
+  }
+  .perks-unordered-list-item-inactive {
+    display: flex;
+    gap: 33px;
+    filter: brightness(0.55);
+  }
+  .perks-unordered-list-item {
+    display: flex;
+    gap: 33px;
+  }
+  .wishlisted-perk-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+  }
+  .perk-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 7px;
+    width: 350px;
+    max-width: 350px;
+  }
+  .edit-wishlisted-item-masterwork-selection-unordered-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 86px;
+    margin-left: 30px;
+    margin-bottom: 65px;
+  }
+  .edit-wishlisted-item-masterwork-selection-unordered-list-item {
+    display: flex;
+    gap: 24px;
+    width: 200px;
+    filter: brightness(0.5);
+  }
+  .edit-wishlisted-item-masterwork-selection-unordered-list-item-active {
+    display: flex;
+    gap: 24px;
+    width: 200px;
+  }
+
+  .edit-wishlisted-item-selection-masterwork-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 30px;
+  }
+  .edit-wishlisted-item-selection-masterwork-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .edit-wishlisted-items-submit-delete-buttons-container {
+    display: flex;
+    margin-bottom: 61px;
+    gap: 41px;
+    margin-left: 30px;
+  }
+  .submit-edited-wishlisted-item-button {
+    width: 120px;
+    height: 40px;
+    background-color: #8d77f0;
+    border-radius: 20px;
+    padding: 4px 9px 4px 9px;
+  }
+  .cancel-wishlisted-item-editing-button {
+    width: 120px;
+    height: 40px;
+    background-color: #d75c5c;
+    border-radius: 20px;
+    padding: 4px 9px 4px 9px;
+  }
+}
+@media only screen and (max-width: 528px) {
+  .edit-wishlisted-item-container {
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+    }
+    input {
+      border: none;
+      background: none;
+    }
+    button {
+      border: none;
+      background: none;
+    }
+    .edit-user-item-perks-masterworks-unordered-list {
+      display: flex;
+      flex-direction: column;
+      gap: 46px;
+      margin-left: 0px;
+      margin-bottom: 46px;
+    }
+    .edit-wishlisted-item-perk-column-header {
+      width: fit-content;
+      margin: auto;
+    }
+    .wishlisted-perk-icon {
+      width: 60px;
+      height: 60px;
+    }
+    .wishlisted-item-perks-header {
+      margin-left: 0;
+      margin-bottom: 46px;
+    }
+    .perk-info-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      justify-content: space-between;
+      margin-top: 7px;
+      width: 128px;
+      max-width: 128px;
+    }
+    .edit-wishlisted-item-masterwork-selection-unordered-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 86px;
+      margin-left: 0px;
+      margin-bottom: 65px;
+    }
+    .edit-wishlisted-items-submit-delete-buttons-container {
+      display: flex;
+      gap: 41px;
+      width: fit-content;
+      margin: 0 auto 61px auto;
+    }
+  }
+}
+/* @media only screen and (max-width: 584px) {
+  .edit-wishlisted-item-container {
+    .edit-wishlisted-item-masterwork-selection-unordered-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 86px;
+      margin-left: 0px;
+      margin-bottom: 65px;
+    }
+  }
+} */
