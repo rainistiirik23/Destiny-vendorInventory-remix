@@ -1,19 +1,93 @@
-.navigation-links-container {
+.navigation-links-log-in-out-container {
   display: flex;
+  width: 95vw;
+
+  margin: auto;
+  height: 26px;
   justify-content: space-between;
-  width: 1200px;
-  margin: 0 auto;
+  align-content: center;
+  background-color: #17184a;
 }
 .navigation-links-unordered-list {
+  svg {
+    height: 26px;
+  }
+
   display: flex;
+  align-items: center;
   gap: 12px;
+  color: #c6afaf;
 }
 .navigation-link {
   text-decoration: none;
+  color: white;
+  /* text-decoration: none;
   text-decoration-color: none;
-  background-color: gray;
+  background-color: gray; */
+}
+.discord-icon-container {
+  height: fit-content;
+  div {
+    max-height: 26px;
+  }
+}
+.burger-menu-icon-list-item {
+  display: none;
 }
 .log-out-form-container {
   display: flex;
+  align-items: center;
   gap: 12px;
+}
+.user-icon-container {
+  div {
+    max-height: 26px;
+  }
+}
+.log-out-form-button {
+  border: none;
+  background: none;
+  width: 73px;
+  height: 21px;
+  background-color: #d75c5c;
+  border-radius: 20px;
+}
+.log-in-button {
+  border: none;
+  background: none;
+  background-color: #5ca0d7;
+  height: 21px;
+  width: 128px;
+  border-radius: 21px;
+}
+@media only screen and (max-width: 583px) {
+  .navigation-links-unordered-list {
+    svg {
+      height: 26px;
+    }
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    color: #c6afaf;
+    width: 95vw;
+    margin: auto;
+    li {
+      display: none;
+    }
+    .burger-menu-icon-list-item {
+      display: block;
+    }
+    .discord-icon-navigation-list-item {
+      display: block;
+    }
+  }
+
+  .log-out-form-container {
+    display: none;
+  }
+  .log-in-button {
+    display: none;
+  }
 }
