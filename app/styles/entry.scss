@@ -2,9 +2,24 @@
 @import "./Components/createWishListedItems";
 @import "./Components/wishlistedItems";
 @import "./Components/navbar";
-
-main {
+@import "./Components/editWishlistedItem";
+@import "./Components/burgerMenu";
+body {
+  background-color: #010021;
+  color: white;
+  margin: 0;
+  font-family: "Lato", sans-serif;
 }
+.body-disable-scroll {
+  background-color: #010021;
+  color: white;
+  margin: 0;
+  overflow: hidden;
+}
+main {
+  margin-left: 66px;
+}
+
 h1,
 h2,
 h3 {
@@ -24,4 +39,16 @@ button {
 input {
   padding: 0;
   margin: 0;
+}
+header {
+  display: flex;
+  align-items: center;
+  height: 51px;
+  background-color: #17184a;
+  margin-bottom: 126px;
+}
+@media only screen and (max-width: 694px) {
+  main {
+    margin-left: 17px;
+  }
 }
