@@ -1,12 +1,110 @@
-.perks-unordered-list {
+.user-wishlisted-items-unordered-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 180px;
+  margin-bottom: 222px;
+}
+.item-info-container {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 55px;
+}
+.user-item-info-container {
+}
+.user-wishlisted-perks-header {
+  margin-bottom: 46px;
+}
+.user-item-perks-masterworks-info-container {
+  display: flex;
+  gap: 26.73px;
+  flex-wrap: wrap;
+  /*  max-width: 70vw; */
+  margin-left: 30px;
+  margin-bottom: 46px;
+  height: 165px;
+}
+
+.user-perks-unordered-list {
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
-  margin-bottom: 20px;
+}
+.user-perks-unordered-list-item {
+  padding-right: 16.27px;
+  border-right: white solid thin;
+}
+.perk-column-header {
+  margin-bottom: 29px;
+}
+.user-wishlisted-perk-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+}
+.user-perk-description-container {
+  p {
+    margin: 0;
+  }
+  max-width: 275px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.user-perk-name {
+  font-size: 18px;
 }
 .user-item-masterworks-info-container {
   display: flex;
   gap: 40px;
+  margin-left: 30px;
+  margin-bottom: 61px;
+}
+.user-item-masterworks-header {
+  margin-bottom: 38px;
+}
+.user-item-masterworks-info-list-item {
+  margin-bottom: 46px;
+}
+.user-item-masterworks-info-list-item-container {
+  display: flex;
+  gap: 24px;
+}
+.user-item-masterwork-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 30px;
+}
+.user-item-masterwork-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.edit-delete-wishlisted-item-buttons-container {
+  margin-left: 30px;
+  display: flex;
+  gap: 38.2px;
+  /* margin-bottom: 130px; */
+}
+.edit-wishlisted-item-button {
+  /* box-sizing: border-box; */
+  width: 110.08px;
+  height: 30.78px;
+  background-color: #8d77f0;
+  border: none;
+  border-radius: 20px;
+}
+.delete-wishlisted-item-button {
+  width: 110.08px;
+  height: 30.78px;
+  background-color: #d75c5c;
+  border: none;
+  border-radius: 20px;
+}
+.wishlist-an-item-button {
+  width: 140px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #8d77f0;
 }
 .delete-container {
   position: sticky;
@@ -27,4 +125,56 @@
 .delete-form-button-container {
   display: flex;
   justify-content: space-between;
+}
+@media only screen and (max-width: 694px) {
+  .user-item-perks-masterworks-info-container {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-left: 0px;
+    margin-bottom: 46px;
+    height: 110px;
+  }
+  .user-wishlisted-items-unordered-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 150px;
+  }
+  .user-perks-unordered-list-item {
+    padding-right: 12px;
+    border-right: white solid thin;
+  }
+
+  .user-wishlisted-perk-icon {
+    width: 50px;
+    height: 50px;
+  }
+  .user-item-masterworks-info-container {
+    display: flex;
+    gap: 40px;
+    margin-left: 0px;
+    margin-bottom: 61px;
+  }
+  .user-item-icon {
+    width: 60px;
+    height: 60px;
+  }
+  .user-item-header {
+    font-size: 22px;
+  }
+  .user-item-masterwork-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+  }
+  .wishlist-an-item-button {
+    margin: auto;
+  }
+  .wishlist-an-item-button-container {
+    display: flex;
+    justify-content: center;
+  }
+}
+.wishlisted-vendor-sales-blur-container {
+  filter: blur(4px);
 }
