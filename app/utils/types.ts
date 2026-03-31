@@ -82,6 +82,13 @@ export type perkObject = {
     perkName: string;
   }>;
 };
+
+export type selectedPerkWithState = {
+  perkDescription: string;
+  perkHash: number;
+  perkIcon: string;
+  perkName: string;
+} | null;
 export type perk = {
   perkDescription: string;
   perkHash: number;
@@ -102,6 +109,7 @@ export type masterWork = {
   masterWorkIcon: string;
   masterWorkName: string;
 };
+
 export type masterWorksArray = Array<masterWork>;
 
 export type matchingItem = {
@@ -148,7 +156,7 @@ export type requiredUserData = {
   id: string;
   username: string;
 };
-export interface createUserWishListedItemProps {
+export interface createUserWishListedItemProps extends wishListComponentStateFunctionProp {
   userData: {
     global_name: string;
     id: string;
@@ -171,6 +179,16 @@ export interface editUserWishlistedItemProps extends wishListComponentStateFunct
     user_id: string;
   };
 }
+export type navigationProps = {
+  userData:
+    | {
+        global_name: string;
+        id: string;
+        username: string;
+      }
+    | undefined;
+  setBurgerMenuStateFunction: Function;
+};
 export type userData = {
   userData:
     | {
@@ -233,6 +251,10 @@ export type currentVendorSalesLoaderData = {
         username: string;
       }
     | undefined;
+  setSelectedItemPerkForDisplayFunction: Function;
+  selectedItemPerkState: perk | null;
+  setSelectedItemMasterworkForDisplayFunction: Function;
+  selectedItemMasterWorkState: masterWork | null;
 };
 export type masterworkObjectArray = Array<{
   masterWorkDescription: string;

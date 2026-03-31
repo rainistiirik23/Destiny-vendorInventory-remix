@@ -1,9 +1,24 @@
-.vendor-sales-unordered-list {
-  display: flex;
-  flex-direction: column;
-  gap: 80px;
+.vendorSales-blur-container {
+  filter: blur(4px);
 }
 
+.vendor-info-container {
+  display: flex;
+  gap: 21px;
+  margin-bottom: 46px;
+}
+.vendor-sales-unordered-list {
+  display: flex;
+  gap: 300px;
+  margin-left: 60px;
+  flex-wrap: wrap;
+  max-width: 1616px;
+}
+.sale-list-item {
+  display: flex;
+  flex-direction: column;
+  gap: 46px;
+}
 .sale-item-container {
   display: flex;
   gap: 20px;
@@ -19,20 +34,195 @@
 .sale-item-image {
   border-radius: 10%;
 }
+.sale-item-perks-container {
+  display: flex;
+  gap: 33px;
+}
 
 .sale-item-perk-column-unordered-list {
   display: flex;
-  margin-bottom: 40px;
+  flex-direction: column;
+  padding-right: 33px;
+
+  gap: 22px;
+  border-right: white solid thin;
+  /*   margin-bottom: 40px; */
 }
 .sale-item-perk-column-unordered-list-item {
   display: flex;
   gap: 20px;
   max-width: 400px;
+  position: relative;
 }
 .sale-item-perk-info-container {
-  display: flex;
-  flex-direction: column;
+  display: none;
+}
+.sale-item-perk-column-unordered-list-item:hover {
+  .sale-item-perk-info-container {
+    display: flex;
+    position: absolute;
+    left: 70px;
+    bottom: 50px;
+    width: 349px;
+    background-color: #1d134a;
+    z-index: 1;
+    padding: 16px 15px 39px 14px;
+    border-radius: 20px;
+  }
 }
 .sale-item-perk-image {
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
+}
+.sale-item-masterwork-container {
+  display: flex;
+  flex-direction: column;
+  gap: 33px;
+  margin-left: 33px;
+}
+.sale-item-masterwork-info-container {
+  display: flex;
+  gap: 24px;
+}
+.sale-item-masterwork-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 30px;
+}
+.sale-item-masterwork-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.detailed-perk-info-container-container {
+  .detailed-info-close-button-container {
+    .close-button {
+      width: fit-content;
+    }
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 25px;
+  }
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 337px;
+  padding: 13px 20px 80px 66px;
+  box-sizing: border-box;
+  background-color: #1d134a;
+  border-radius: 20px;
+  transform: translate(-50%, -50%);
+}
+.detailed-perk-info-container {
+  width: 223px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  h2,
+  p {
+    text-align: center;
+  }
+}
+.detailed-perk-info-image-container {
+  width: fit-content;
+  margin: auto;
+}
+.detailed-perk-info-image {
+  width: 60px;
+  height: 60px;
+}
+.detailed-masterwork-info-container-container {
+  .detailed-info-close-button-container {
+    .close-button {
+      width: fit-content;
+    }
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 25px;
+  }
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  width: 337px;
+  padding: 13px 20px 37px 66px;
+  box-sizing: border-box;
+  background-color: #1d134a;
+  border-radius: 20px;
+}
+.detailed-masterwork-info-container {
+  width: 223px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  h2,
+  p {
+    text-align: center;
+  }
+}
+.detailed-masterwork-info-image-container {
+  width: fit-content;
+  margin: auto;
+}
+.detailed-masterwork-info-image {
+  width: 72px;
+  height: 72px;
+  border-radius: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+  .sale-item-perks-container {
+    display: flex;
+    gap: 12px;
+  }
+  .sale-item-perk-column-unordered-list {
+    display: flex;
+    flex-direction: column;
+    padding-right: 12px;
+    gap: 22px;
+    border-right: white solid thin;
+    /*   margin-bottom: 40px; */
+  }
+}
+@media only screen and (max-width: 467px) {
+  .vendor-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+    width: fit-content;
+    margin: 0 auto 46px auto;
+  }
+  .vendor-name-header {
+    width: fit-content;
+    margin: 0px auto 26px auto;
+  }
+  .vendor-description {
+    width: fit-content;
+    margin: auto;
+  }
+  .sale-item-name {
+    font-size: 25px;
+  }
+  .sale-item-image {
+    width: 60px;
+    height: 60px;
+  }
+
+  .sale-item-perk-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  .vendor-sales-unordered-list {
+    display: flex;
+    gap: 80px;
+    margin-left: 0px;
+    flex-wrap: wrap;
+  }
+  .sale-item-masterwork-container {
+    display: flex;
+    flex-direction: column;
+    gap: 33px;
+    margin-left: 0px;
+  }
 }
