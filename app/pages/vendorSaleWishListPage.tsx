@@ -10,6 +10,8 @@ import {
   wishlistUserData,
   type userWishListItem,
   type wishListedItemEditInfoType,
+  type selectedPerkWithState,
+  type masterWork,
 } from "~/utils/types";
 import { ensureValueIsNotNullOrUndefined } from "~/utils/helpers";
 export default function VendorWishlistPage(data: wishlistUserData) {
